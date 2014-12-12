@@ -1,0 +1,27 @@
+@font-face {
+    font-family: ClearSans;
+    src: url(../fonts/ClearSans-Light.ttf);
+}
+body{
+    font-family:ClearSans;
+    margin: 20px 100px;
+    background-image:url(../images/body-background.png)
+}
+table{
+    margin: 0 auto;
+    background-color: white;
+}
+h1, h3{
+    text-align: center;
+}
+
+th{
+    background-color: aliceblue;
+}
+a{
+    text-decoration: none;
+    color: crimson;
+}
+tr:nth-child(odd) {
+    background-color: #fef7f7;
+}
