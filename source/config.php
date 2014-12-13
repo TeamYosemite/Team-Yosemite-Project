@@ -1,6 +1,6 @@
 <?php
 define('DBHOST', 'localhost');
-define('DBPORT', '3306');
+define('DBPORT', '8080');
 define('DBUSER', 'root');
 define('DBPASS', '');
 define('DBNAME', 'yosemite_blog');

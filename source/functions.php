@@ -1,6 +1,5 @@
 <?php
 
-function load_posts() {
 	$stmt = $db->query('SELECT `post_id`, `post_title`, `post_description`, `post_author`, `post_dateCreated`, `post_timesSeen` FROM posts');
 	while($row = $stmt->fetch()) {
 	?>
@@ -11,5 +10,4 @@ function load_posts() {
 			<p>Posted on <?= date('d-m-Y H:i:s', $row['post_dateCreated']);?></p>
 		</article>
 	<?php
-	}
 }
