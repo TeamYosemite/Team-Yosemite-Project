@@ -4,10 +4,6 @@ function load_posts($db, $currentPage) {
 	$postsLimit = 5;
 	$allPages = ceil($postsCount / $postsLimit);
 	
-	if(!isset($currentPage) || $currentPage == null) {
-		$currentPage = 1;
-	}
-	
 	if(!is_numeric($currentPage) || $currentPage <= 0 || $currentPage > $allPages) {
 		header('Location: index.php');
 		exit;
