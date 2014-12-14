@@ -12,7 +12,12 @@ if (isset($_GET['id'])):
     $users->bindParam('uid', $row['post_author'], PDO::PARAM_STR);
     $users->execute();
     $user = $users->fetchAll();
-    $user = $user[0][1];
+   $user = $user[0][1];
+
+    $posts = $db->prepare("SELECT * FROM comments  WHERE comment_postid = :postid");
+    $posts->bindParam('postid', $row['post_id'], PDO::PARAM_STR);
+    $posts->execute();
+    $posts = $posts->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE>
 <html>
@@ -25,6 +30,15 @@ if (isset($_GET['id'])):
     <div><?=$row['post_content']?></div>
     <div>Published on <?=date('d/m/y') ?></div>
     <div>Author: <?=$user?></div>
+<?php
+    for ($p = 0; $p < count($posts); $p++) {
+        $comment = $posts[$p]['comment_content'];
+        echo "<section>";
+        echo "<div>$comment</div>";
+        echo "</section>";
+    }
+?>
+
 </body>
 </html>
 <?php
