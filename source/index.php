@@ -3,4 +3,4 @@
 include 'config.php';
 include 'functions.php';
 
-load_posts();
+load_posts($db);
