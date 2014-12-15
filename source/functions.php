@@ -40,5 +40,14 @@ function load_posts($db, $currentPage) {
 			<?= $nextlink;?>
 		</p>
 	</div>
-<?php	
+<?php
 }
+?>
+
+<?php
+function ifLoggedIn(){
+   if(!(isset($_SESSION['is_logged'])) || $_SESSION['is_logged'] == false) {
+        header('Location: ../index.php');
+    }
+}
+?>

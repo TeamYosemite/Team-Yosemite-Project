@@ -4,8 +4,11 @@
 	<textarea name="content" placeholder="Content..." ></textarea>
 	<input type="submit" value="Submit" name="submit"/>
 </form>
-
 <?php
+session_start();
+require '../functions.php';
+ifLoggedIn();
+
 include '../config.php';
 if (isset($_POST['submit'])) {
     echo '76765';
