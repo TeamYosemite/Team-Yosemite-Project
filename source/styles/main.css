@@ -71,7 +71,8 @@
 
 .indexPage footer {
     position: relative;
-    background: linear-gradient(to bottom, #f5f5f5 5%, #68822a 30%);
+    background: linear-gradient(to bottom, #83a234 0%, #58732b 50%);
+    border-top: 3px solid #abcd3c;
     height: 200px;
     width: 1024px;
     margin: 0 auto;

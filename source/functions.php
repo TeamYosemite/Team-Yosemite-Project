@@ -16,14 +16,13 @@ function load_posts($db, $currentPage) {
     $stmt->execute();
 
 	while($row = $stmt->fetch()) {
-	$dateCreated = new DateTime($row['post_dateCreated']);
 	?>
 		<article>
 
 			<h3><a href="view_post.php?id=<?= $row['post_id'];?>"><?= $row['post_title'];?></a></h3>
 			<p><?= $row['post_description'];?>'</p>
 			<p><a href="view_post.php?id=<?= $row['post_id'];?>">Read more</a></p>
-			<p>Posted on <?= $dateCreated->format('d-m-Y H:i:s');?></p>
+			<p>Posted on <?= date('d-m-Y H:i:s', $row['post_dateCreated']);?></p>
 		</article>
 		<hr />
 	<?php
@@ -42,12 +41,39 @@ function load_posts($db, $currentPage) {
 	</div>
 <?php
 }
-?>
 
-<?php
 function ifLoggedIn(){
    if(!(isset($_SESSION['is_logged'])) || $_SESSION['is_logged'] == false) {
         header('Location: ../index.php');
     }
 }
-?>
+
+
+
+function isPostValid($title, $description, $content) {
+	if(!preg_match('/^[^\s][\w\d\s!\.,;#$?@%&\(\)]{2,50}$/', $title)) {
+		throw new Exception('Please enter valid title!');
+	}
+	
+	if(!preg_match('/^[^\s][\w\d\s!\.,;#$?@%&\(\)]{2,255}$/', $description)) {
+		throw new Exception('Please enter valid description!');
+	}
+	
+	if(!preg_match('/^.{2,3000}$/', $content)) {
+		throw new Exception('Please enter valid content!');
+	}
+	
+	return true;
+}
+
+function createPost($title, $description, $content, $author, $time) {
+	global $db;
+
+	$stmt = $db->prepare('INSERT INTO `posts` (`post_title`, `post_description`, `post_content`, `post_author`, `post_dateCreated`) VALUES (:title, :description, :content, :author, :dateCreated)');
+    $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+    $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+    $stmt->bindParam(':content', $content, PDO::PARAM_STR);
+    $stmt->bindParam(':author', $author, PDO::PARAM_STR);
+    $stmt->bindParam(':dateCreated', $time, PDO::PARAM_INT);
+    $stmt->execute();
+}
