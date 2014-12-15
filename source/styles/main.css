@@ -5,6 +5,12 @@
     src: url(../fonts/ClearSans-Light.ttf);
 }
 
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 /* index page -> */
 
 .indexPage html {
@@ -34,11 +40,10 @@
 }
 
 .indexPage main {
-    padding: 20px;
+    padding: 20px 20px 0 20px;
     background-color: #f5f5f5;
     box-sizing: border-box;
     width: 1024px;
-    min-height: 1024px;
     margin: 0 auto;
 }
 
@@ -58,10 +63,27 @@
     float: right;
     padding: 20px;
     width: 230px;
-    min-height: 300px;
+    min-height: 400px;
     background-color: white;
     box-shadow: 0 0 5px lightgrey;
 
+}
+
+.indexPage footer {
+    position: relative;
+    background: linear-gradient(to bottom, #f5f5f5 5%, #68822a 30%);
+    height: 200px;
+    width: 1024px;
+    margin: 0 auto;
+}
+
+.indexPage footer p {
+    color: white;
+    position: absolute;
+    left: 30px;
+    top: 120px;
+    font-family: Tahoma, sans-serif;
+    font-size: 24px;
 }
 
 /* -> index page */
