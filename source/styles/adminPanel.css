@@ -2,26 +2,26 @@
     font-family: ClearSans;
     src: url(../fonts/ClearSans-Light.ttf);
 }
-body{
+.adminPanel {
     font-family:ClearSans;
     margin: 20px 100px;
     background-image:url(../images/body-background.png)
 }
-table{
+.adminPanel table{
     margin: 0 auto;
     background-color: white;
 }
-h1, h3{
+.adminPanel h1, .adminPanel h3{
     text-align: center;
 }
 
-th{
+.adminPanel th{
     background-color: aliceblue;
 }
-a{
+.adminPanel a{
     text-decoration: none;
     color: crimson;
 }
-tr:nth-child(odd) {
+.adminPanel tr:nth-child(odd) {
     background-color: #fef7f7;
 }
