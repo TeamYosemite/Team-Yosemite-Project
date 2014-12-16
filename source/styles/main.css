@@ -79,10 +79,20 @@
 }
 
 .indexPage footer span {
+    display: block;
+    position: absolute;
+    top: 90px;
+    left: 50px;
     color: white;
     font-family: Tahoma, sans-serif;
     font-size: 24px;
-    text-align: center;
+}
+
+.indexPage #paging {
+    width: 1024px;
+    margin: 0 auto;
+    background-color: #58732B;
+
 }
 
 /* -> index page */
