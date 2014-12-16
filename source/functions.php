@@ -14,7 +14,7 @@ function load_posts($db, $currentPage) {
     $stmt->bindParam(':limit', $postsLimit, PDO::PARAM_INT);
     $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
     $stmt->execute();
-
+    echo '<main class="clearfix"><aside></aside>';
 	while($row = $stmt->fetch()) {
 	?>
 		<article>
@@ -22,12 +22,11 @@ function load_posts($db, $currentPage) {
 			<h3><a href="view_post.php?id=<?= $row['post_id'];?>"><?= $row['post_title'];?></a></h3>
 			<p><?= $row['post_description'];?>'</p>
 			<p><a href="view_post.php?id=<?= $row['post_id'];?>">Read more</a></p>
-			<p>Posted on <?= date('d-m-Y H:i:s', $row['post_dateCreated']);?></p>
+			<p>Posted on <?= date('d-m-Y H:i:s', strtotime($row['post_dateCreated']));?></p>
 		</article>
-		<hr />
 	<?php
 	}
-	
+	echo '</main>';
     $previouslink = ($currentPage > 1) ? '<a href="?page=1" title="First page">&laquo;</a> <a href="?page=' . ($currentPage - 1) . '" title="Previous page">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
 
     $nextlink = ($currentPage < $allPages) ? '<a href="?page=' . ($currentPage + 1) . '" title="Next page">&rsaquo;</a> <a href="?page=' . $allPages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
