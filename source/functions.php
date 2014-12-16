@@ -76,3 +76,30 @@ function createPost($title, $description, $content, $author, $time) {
     $stmt->bindParam(':dateCreated', $time, PDO::PARAM_INT);
     $stmt->execute();
 }
+
+function validateUserData($user_name, $password) {
+	if(!preg_match('/^[a-zA-Z0-9_-]{3,32}$/', $user_name)) {
+		throw new Exception('Please enter valid username!');
+	}
+	
+	if(!preg_match('/^.{3,32}$/', $password)) {
+		throw new Exception('Please enter valid password!');
+	}
+}
+
+function validateLogin($user_name) {
+	global $db;
+
+	$stmt = $db->prepare("SELECT `user_id`, `user_password` FROM `users` WHERE `user_name` = :user_name");
+    $stmt->bindParam('user_name', $user_name, PDO::PARAM_STR);
+    $stmt->execute();
+    $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	
+	if(count($user) == 0) {
+		throw new Exception('There is no such user!');
+	}
+	
+	if($password != $user['user_password']) {
+		throw new Exception('Wrong password!');
+	}
+}
