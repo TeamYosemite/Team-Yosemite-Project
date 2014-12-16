@@ -1,5 +1,5 @@
 <footer>
-    <p>Team Yosemite&#169; 2014</p>
+    <span>Team Yosemite&#169; 2014</span>
 </footer>
 
 </body>

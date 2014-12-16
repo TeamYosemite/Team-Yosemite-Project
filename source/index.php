@@ -2,10 +2,6 @@
 
 include 'config.php';
 include 'functions.php';
-
-$currentPage = isset($_GET['page']) && $_GET['page'] != null ? $_GET['page'] : 1;
-load_posts($db, $currentPage);
-
 include 'templates/header.php';
 
 ?>
@@ -16,23 +12,12 @@ include 'templates/header.php';
     <p>A blog about Beautiful Bulgaria</p>
 </header>
 
-<main class="clearfix">
-    <aside>
-    </aside>
+<?php
 
-    <article>
-    </article>
+$currentPage = isset($_GET['page']) && $_GET['page'] != null ? $_GET['page'] : 1;
+load_posts($db, $currentPage);
 
-    <article>
-    </article>
-
-    <article>
-    </article>
-
-    <article>
-    </article>
-
-</main>
+?>
 
 <?php
 
