@@ -72,7 +72,6 @@
 .indexPage footer {
     position: relative;
     background: linear-gradient(to bottom, #83a234 0%, #58732b 50%);
-    border-top: 3px solid #abcd3c;
     height: 200px;
     width: 1024px;
     margin: 0 auto;
@@ -89,9 +88,13 @@
 }
 
 .indexPage #paging {
+    box-sizing: border-box;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 20px;
     width: 1024px;
     margin: 0 auto;
-    background-color: #58732B;
+    background-color: #83a234;
 
 }
 
