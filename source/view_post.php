@@ -41,6 +41,13 @@ if (isset($_GET['id'])):
     }
 ?>
 
+<form method="post" action="admin/addComment.php">
+    <input type="text" name="name" placeholder="Your name">
+    <input type="text" name="email" placeholder="E-mail">
+    <textarea name="comment"></textarea>
+    <input type="hidden" value="<?=$id?>" name="id">
+    <input type="submit" name="submit">
+</form>
 </body>
 </html>
 <?php
