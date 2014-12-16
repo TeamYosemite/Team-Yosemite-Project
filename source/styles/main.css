@@ -23,18 +23,19 @@
 }
 
  header {
-    box-sizing: border-box;
-    background-image: url("../images/hedaer-background.jpg");
-    height: 300px;
-    width: 1024px;
-    margin: 0 auto;
+     position: relative;
+     box-sizing: border-box;
+     background-image: url("../images/hedaer-background.jpg");
+     height: 300px;
+     width: 1024px;
+     margin: 0 auto;
 }
 
  header p {
     font-family: Lobster, sans-serif;
-    position: relative;
-    top: 20px;
-    left: 480px;
+    position: absolute;
+    bottom: 190px;
+    right: 50px;
     color: white;
     font-size: 40px;
 }
