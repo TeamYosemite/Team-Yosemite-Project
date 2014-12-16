@@ -37,9 +37,3 @@ include 'templates/header.php';
         <input type="submit" name="submit" />
     </form>
 </body>
-
-<?php
-
-include 'templates/footer.php';
-
-?>
