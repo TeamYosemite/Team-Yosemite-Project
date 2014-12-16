@@ -24,16 +24,16 @@ for ($r = 0; $r < count($rowP); $r++):
         <td><?=date('d-m-Y', strtotime($rowData['post_dateCreated']))?></td>
         <td><?=date('H:i:s', strtotime($rowData['post_dateCreated']))?></td>
         <td><a href="post_edit.php?id=<?=$rowData['post_id']?>">Edit</a></td>
-        <td><a onclick="confirmDelete()" href="#">Remove</a></td>
+        <td><a onclick="confirmDelete(<?=$rowData['post_id'];?>)" href="#">Remove</a></td>
         <td><a href="../view_post.php?id=<?=$rowData['post_id']?>">View</a></td>
     </tr>
 
     <script>
-        function confirmDelete(){
+        function confirmDelete(id){
             var check = confirm('Delete post?');
             console.log(check);
             if (check) {
-                window.location = 'post_delete.php?id=<?=$rowData['post_id']?>'
+                window.location = 'post_delete.php?id=' + id
             }
         }
     </script>

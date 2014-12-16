@@ -1,11 +1,14 @@
 <?php
 session_start();
-require '../functions.php';
+include '../config.php';
+include '../functions.php';
 ifLoggedIn();
-require '../config.php';
 
-$post = $db->prepare("DELETE FROM posts WHERE post_id = :id");
-$post->bindParam('id', $_GET['id'], PDO::PARAM_INT);
-$post->execute();
-header('Location: adminPanel.php')
-?>
+$id = $_GET['id'];
+
+if(is_numeric($id)) {
+	deletePost($id);
+}
+
+header('Location: adminPanel.php');
+exit;

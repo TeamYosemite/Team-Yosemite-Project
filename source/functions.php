@@ -1,46 +1,30 @@
 <?php
-function load_posts($currentPage) {
+
+function load_posts($page) {
 	global $db;
+	
+	$posts = [];
 
 	$postsCount = $db->query('SELECT COUNT(post_id) FROM posts')->fetchColumn();
 	$postsLimit = 5;
 	$allPages = ceil($postsCount / $postsLimit);
 	
-	if(!is_numeric($currentPage) || $currentPage <= 0 || $currentPage > $allPages) {
+	if(!is_numeric($page) || $page <= 0 || $page > $allPages) {
 		header('Location: index.php');
 		exit;
 	}
 	
-	$offset = ($currentPage - 1) * $postsLimit;
+	$offset = ($page - 1) * $postsLimit;
 	$stmt = $db->prepare('SELECT `post_id`, `post_title`, `post_description`, `post_author`, `post_dateCreated`, `post_timesSeen` FROM posts ORDER BY post_id DESC LIMIT :limit OFFSET :offset');
     $stmt->bindParam(':limit', $postsLimit, PDO::PARAM_INT);
     $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
     $stmt->execute();
-    echo '<main class="clearfix"><aside></aside>';
+	
 	while($row = $stmt->fetch()) {
-	?>
-		<article>
-
-			<h3><a href="view_post.php?id=<?= $row['post_id'];?>"><?= $row['post_title'];?></a></h3>
-			<p><?= $row['post_description'];?>'</p>
-			<p><a href="view_post.php?id=<?= $row['post_id'];?>">Read more</a></p>
-			<p>Posted on <?= date('d-m-Y H:i:s', strtotime($row['post_dateCreated']));?></p>
-		</article>
-	<?php
+		$posts[] = $row;
 	}
-	echo '</main>';
-    $previouslink = ($currentPage > 1) ? '<a href="?page=1" title="First page">&laquo;</a> <a href="?page=' . ($currentPage - 1) . '" title="Previous page">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
-
-    $nextlink = ($currentPage < $allPages) ? '<a href="?page=' . ($currentPage + 1) . '" title="Next page">&rsaquo;</a> <a href="?page=' . $allPages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
-?>
-	<div id="paging">
-		<p>
-			<?= $previouslink;?>
-			Page <?= $currentPage;?> of <?= $allPages;?>
-			<?= $nextlink;?>
-		</p>
-	</div>
-<?php
+	
+	return [ 'posts' => $posts, 'totalPages' => $allPages ];
 }
 
 function load_post($id) {
@@ -90,6 +74,14 @@ function createPost($title, $description, $content, $author, $time) {
     $stmt->bindParam(':author', $author, PDO::PARAM_STR);
     $stmt->bindParam(':dateCreated', $time, PDO::PARAM_INT);
     $stmt->execute();
+}
+
+function deletePost($id) {
+	global $db;
+	
+	$stmt = $db->prepare("DELETE FROM `posts` WHERE `post_id` = :id");
+	$stmt->bindParam('id', $id, PDO::PARAM_INT);
+	$stmt->execute();
 }
 
 function updatePost($id, $title, $description, $content) {
