@@ -18,6 +18,7 @@ if (isset($_GET['id'])):
     $posts->bindParam('postid', $row['post_id'], PDO::PARAM_STR);
     $posts->execute();
     $posts = $posts->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 <!DOCTYPE>
 <html>
@@ -30,6 +31,7 @@ if (isset($_GET['id'])):
     <div><?=$row['post_content']?></div>
     <div>Published on <?=date('d/m/y') ?></div>
     <div>Author: <?=$user?></div>
+    <div>Visits: <?=$row['post_timesSeen']?></div>
 <?php
     for ($p = 0; $p < count($posts); $p++) {
         $comment = $posts[$p]['comment_content'];
@@ -42,5 +44,13 @@ if (isset($_GET['id'])):
 </body>
 </html>
 <?php
+    $visits = $row['post_timesSeen'] + 1;
     endif;
+
+$stmt = $db->prepare("UPDATE posts SET post_timesSeen =:visits WHERE post_id = :id");
+$stmt->bindParam('visits', $visits, PDO::PARAM_STR);
+$stmt->bindParam('id', $id, PDO::PARAM_STR);
+$stmt->execute();
+
+
 ?>
