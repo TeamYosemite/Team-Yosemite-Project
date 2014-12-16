@@ -48,7 +48,7 @@ function ifLoggedIn(){
     }
 }
 
-function isPostValid($title, $description, $content) {
+function isPostValid($title, $description, $content, $tags) {
 	if(!preg_match('/^[^\s][\w\d\s!\.,;#$?@%&\(\)]{2,50}$/', $title)) {
 		throw new Exception('Please enter valid title!');
 	}
@@ -61,7 +61,25 @@ function isPostValid($title, $description, $content) {
 		throw new Exception('Please enter valid content!');
 	}
 	
+	foreach($tags as $tag) {
+		if(!preg_match('/^[a-zA-Z0-9_-]{1,32}$/', trim($tag))) {
+			throw new Exception('Please enter valid tags!');
+		}
+	}
+	
 	return true;
+}
+
+function getLastPostId() {
+	global $db;
+	
+	$stmt = $db->prepare("SELECT `post_id` FROM `posts` ORDER BY `post_id` DESC LIMIT 1");
+    $stmt->execute();
+    $id = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	
+	$last_id = $id[0];
+	
+	return $last_id;
 }
 
 function createPost($title, $description, $content, $author, $time) {
@@ -93,6 +111,23 @@ function updatePost($id, $title, $description, $content) {
     $stmt->bindParam(':description', $description, PDO::PARAM_STR);
     $stmt->bindParam(':content', $content, PDO::PARAM_STR);
     $stmt->execute();
+}
+
+function createTags($tags, $post_id) {
+	global $db;
+	
+	foreach($tags as $tag) {
+		$stmt = $db->prepare('INSERT INTO `tags` (`tag_name`) VALUES (:tagName)');
+		$stmt->bindParam(':tagName', $tag, PDO::PARAM_STR);
+		$stmt->execute();
+		
+		$tag_id = $db->lastInsertId();
+		
+		$stmt = $db->prepare('INSERT INTO `posts_tags` (`tag_id`, `post_id`) VALUES (:tagId, :postId)');
+		$stmt->bindParam(':tagId', $tag_id, PDO::PARAM_INT);
+		$stmt->bindParam(':postId', $post_id, PDO::PARAM_INT);
+		$stmt->execute();
+	}
 }
 
 function validateUserData($user_name, $password) {
