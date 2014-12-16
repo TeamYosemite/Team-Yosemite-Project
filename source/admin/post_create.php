@@ -1,36 +1,42 @@
 <?php
+session_start();
 include '../config.php';
 include '../functions.php';
+ifLoggedIn();
+
 $isError = false;
 $errorMessage = '';
-$title = '';
-    $description = '';
-    $content  = '';
+
+$current_post = [
+	'title' => '',
+	'description' => '',
+	'content' => '',
+	'valid' => false
+];
+
 if (isset($_POST['submit'])) {
-    $postValid = false;
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-    $content = $_POST['content'];
+    $current_post['title'] = $_POST['title'];
+    $current_post['description'] = $_POST['description'];
+    $current_post['content'] = $_POST['content'];
+	
     try {
-        $postValid = isPostValid($_POST['title'], $_POST['description'], $_POST['content']);
+        $current_post['valid'] = isPostValid($current_post['title'], $current_post['description'], $current_post['content']);
     } catch(Exception $e) {
         $isError = true;
         $errorMessage = $e->getMessage();
     }
 
-    if($postValid) {
-        createPost($_POST['title'], $_POST['description'], $_POST['content'], $_SESSION['username'], time());
+    if($current_post['valid']) {
+        createPost($current_post['title'], $current_post['description'], $current_post['content'], $_SESSION['username'], time());
     }
-}
-if($isError) {
-    echo "<p class=\"error\">{$errorMessage}</p>";
 }
 ?>
 
+<?= $isError ? "<p class=\"error\">{$errorMessage}</p>" : null;?>
 <form method="POST">
-    <input type="text" name="title" value="<?= $title;?>" placeholder="Title..." />
-    <textarea name="description" value="<?= $description;?>" placeholder="Description..." ></textarea>
-    <textarea name="content" value="<?= $content;?>" id="editor" placeholder="Content..."></textarea>
+    <input type="text" name="title" value="<?= $current_post['title'];?>" placeholder="Title..." />
+    <textarea name="description" placeholder="Description..."><?= $current_post['description'];?></textarea>
+    <textarea name="content" id="editor" placeholder="Content..."><?= $current_post['content'];?></textarea>
     <input type="submit" value="Submit" name="submit"/>
 </form>
 

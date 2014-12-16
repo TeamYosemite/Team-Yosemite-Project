@@ -43,13 +43,26 @@ function load_posts($currentPage) {
 <?php
 }
 
+function load_post($id) {
+	global $db;
+
+	$stmt = $db->prepare("SELECT * FROM `posts` WHERE `post_id` = :post_id");
+    $stmt->bindParam('post_id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $post = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	
+	if(count($post) == 0) {
+		throw new Exception('There is no such post!');
+	}
+	
+	return $post[0];
+}
+
 function ifLoggedIn(){
    if(!(isset($_SESSION['is_logged'])) || $_SESSION['is_logged'] == false) {
         header('Location: ../index.php');
     }
 }
-
-
 
 function isPostValid($title, $description, $content) {
 	if(!preg_match('/^[^\s][\w\d\s!\.,;#$?@%&\(\)]{2,50}$/', $title)) {
@@ -76,6 +89,17 @@ function createPost($title, $description, $content, $author, $time) {
     $stmt->bindParam(':content', $content, PDO::PARAM_STR);
     $stmt->bindParam(':author', $author, PDO::PARAM_STR);
     $stmt->bindParam(':dateCreated', $time, PDO::PARAM_INT);
+    $stmt->execute();
+}
+
+function updatePost($id, $title, $description, $content) {
+	global $db;
+	
+	$stmt = $db->prepare('UPDATE `posts` SET `post_title` = :title, `post_description` = :description, `post_content` = :content WHERE `post_id` = :id');
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+    $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+    $stmt->bindParam(':content', $content, PDO::PARAM_STR);
     $stmt->execute();
 }
 
