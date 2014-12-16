@@ -1,10 +1,11 @@
 <?php
-session_start();
 include '../config.php';
 include '../functions.php';
-ifLoggedIn();
 $isError = false;
 $errorMessage = '';
+$title = '';
+    $description = '';
+    $content  = '';
 if (isset($_POST['submit'])) {
     $postValid = false;
     $title = $_POST['title'];

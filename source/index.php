@@ -1,10 +1,8 @@
 <?php
 
 include 'config.php';
-include 'functions.php';
 
 $currentPage = isset($_GET['page']) && $_GET['page'] != null ? $_GET['page'] : 1;
-load_posts($db, $currentPage);
 
 include 'templates/header.php';
 
@@ -16,26 +14,9 @@ include 'templates/header.php';
     <p>A blog about Beautiful Bulgaria</p>
 </header>
 
-<main class="clearfix">
-    <aside>
-    </aside>
-
-    <article>
-    </article>
-
-    <article>
-    </article>
-
-    <article>
-    </article>
-
-    <article>
-    </article>
-
-</main>
-
 <?php
-
+include 'functions.php';
+load_posts($db, $currentPage);
 include 'templates/footer.php';
 
 ?>
