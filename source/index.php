@@ -2,9 +2,6 @@
 
 include 'config.php';
 include 'functions.php';
-
-$currentPage = isset($_GET['page']) && $_GET['page'] != null ? $_GET['page'] : 1;
-
 include 'templates/header.php';
 
 ?>
@@ -16,14 +13,7 @@ include 'templates/header.php';
 </header>
 
 <?php
-
 $currentPage = isset($_GET['page']) && $_GET['page'] != null ? $_GET['page'] : 1;
-load_posts($db, $currentPage);
+load_posts($currentPage);
 
-?>
-
-<?php
-load_posts($db, $currentPage);
 include 'templates/footer.php';
-
-?>

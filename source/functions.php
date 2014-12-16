@@ -1,5 +1,7 @@
 <?php
-function load_posts($db, $currentPage) {
+function load_posts($currentPage) {
+	global $db;
+
 	$postsCount = $db->query('SELECT COUNT(post_id) FROM posts')->fetchColumn();
 	$postsLimit = 5;
 	$allPages = ceil($postsCount / $postsLimit);
