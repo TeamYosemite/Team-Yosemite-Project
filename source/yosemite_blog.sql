@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
+-- version 4.1.12
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2014 at 07:25 PM
--- Server version: 5.6.21
--- PHP Version: 5.6.3
+-- Generation Time: 
+-- Версия на сървъра: 5.6.16
+-- PHP Version: 5.5.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,129 +19,91 @@ SET time_zone = "+00:00";
 --
 -- Database: `yosemite_blog`
 --
+CREATE DATABASE IF NOT EXISTS `yosemite_blog` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `yosemite_blog`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comments`
+-- Структура на таблица `comments`
 --
 
 CREATE TABLE IF NOT EXISTS `comments` (
-`comment_id` int(11) NOT NULL,
+  `comment_id` int(11) NOT NULL AUTO_INCREMENT,
   `comment_content` text NOT NULL,
-  `comment_dateCreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `comment_dateCreated` int(11) NOT NULL,
   `comment_postId` int(11) NOT NULL,
-  `comment_author` varchar(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `comments`
---
-
-INSERT INTO `comments` (`comment_id`, `comment_content`, `comment_dateCreated`, `comment_postId`, `comment_author`) VALUES
-(1, 'нйхфцнкхфкн цехфбуехфцйн йдфб цсйкфхбк цскйдгбжсб ефуфб сйдкхф', '2014-12-14 18:24:07', 1, ''),
-(2, 'йкндкейхфдкйнекйхбфкйефкйехфнкйеявн', '2014-12-14 18:24:49', 2, ''),
-(3, 'вймляквйдлкейифйнцхцфриефхнцруихеуицфуерхжуернуерхф', '2014-12-14 18:24:49', 1, '');
+  PRIMARY KEY (`comment_id`),
+  KEY `comment_postId` (`comment_postId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posts`
+-- Структура на таблица `posts`
 --
 
 CREATE TABLE IF NOT EXISTS `posts` (
-`post_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL AUTO_INCREMENT,
   `post_title` varchar(50) NOT NULL,
   `post_description` varchar(255) NOT NULL,
   `post_content` text NOT NULL,
   `post_author` varchar(11) NOT NULL,
-  `post_dateCreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `post_timesSeen` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+  `post_dateCreated` int(15) NOT NULL,
+  `post_timesSeen` int(11) NOT NULL,
+  PRIMARY KEY (`post_id`),
+  KEY `post_author` (`post_author`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
 --
--- Dumping data for table `posts`
+-- Схема на данните от таблица `posts`
 --
 
 INSERT INTO `posts` (`post_id`, `post_title`, `post_description`, `post_content`, `post_author`, `post_dateCreated`, `post_timesSeen`) VALUES
-(1, 'lorem', 'ipsem', '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."\r\n', '0', '2014-12-13 18:33:59', 1),
-(2, 'lorem', 'ipsum', '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."\r\n', '1', '2014-12-13 18:34:52', 1),
-(10, 'hello', 'ji', 'kkkkk', 'llll', '2014-12-14 20:40:07', 0),
-(11, 'hello', 'ji', 'kkkkk', 'llll', '2014-12-14 20:41:51', 0),
-(12, 'kkk', 'ji', 'kkkkk', 'llll', '2014-12-14 20:56:48', 0),
-(13, '', 'ji', 'kkkkk', 'llll', '2014-12-14 20:57:16', 0),
-(14, 'salih db', 'ji', 'kkkkk', 'llll', '2014-12-14 20:58:35', 0);
+(1, 'first title', 'some description', '...asd dsa', '1', 1418495551, 13),
+(2, 'another title', 'some more descripiton', 'dsadadasd', '2', 1418495596, 1),
+(4, 'henry, the third', 'asdasd', 'asdasdasd', '15', 1418581213, 3),
+(5, 'tetra', 'teraaraa', 'arara', '17', 1418582480, 17),
+(6, 'asd', 'dsa', 'dsaas', '17', 1418582485, 17),
+(7, 'asdsd', 'dsa', 'dsaas', '17', 1418582485, 17),
+(8, '123213', 'dsa', 'dsaas', '17', 1418582285, 17),
+(9, 'asaasdg', 'dsa', 'dsaas', '17', 1418582485, 17),
+(10, 'asasfasgasgd', 'dsa', 'dsaas', '17', 1418583485, 17),
+(11, 'asdfasf', 'dsa', 'dsaas', '17', 1418582485, 17),
+(12, 'aghagdhagdh', 'dsa', 'dsaas', '17', 1418582638, 17),
+(13, 'adghagdh', 'dsa', 'dsaas', '17', 1418582485, 17),
+(14, 'adhgdhadgh', 'dsa', 'dsaas', '17', 1418572485, 17),
+(15, 'adghadghagdh', 'dsa', 'dsaas', '17', 1419582485, 17),
+(16, 'aghdghagdh', 'dsa', 'dsaas', '17', 1418582485, 17),
+(17, 'ahdghagdh', 'dsa', 'dsaas', '17', 1418552485, 17),
+(18, 'ahgdagdhagh', 'dsa', 'dsaas', '17', 1418582485, 17),
+(19, 'aghaghagh', 'dsa', 'dsaas', '17', 1418582445, 17),
+(20, 'tawtwawqt', 'dsa', 'dsaas', '17', 1414582485, 17),
+(21, 'last', 'asdasd', 'asdsad', '7', 1418582638, 1),
+(22, 'antracit', 'asdasdas', 'asdadadasd', '14', 1418583730, 17),
+(33, 'mechanic', 'mechanic', '<p>mechanic</p>', 'ivzb', 1418668126, 0),
+(34, 'dasdasdas', 'dasdasd', '<p>asdasdas</p>\r\n', 'ivzb', 1418670426, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Структура на таблица `users`
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
-`user_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(11) NOT NULL,
-  `user_password` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `user_password` varchar(100) NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_name` (`user_name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `users`
+-- Схема на данните от таблица `users`
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_password`) VALUES
-(0, 'salih1', 'slih'),
-(1, 'salih', 'salih');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `comments`
---
-ALTER TABLE `comments`
- ADD PRIMARY KEY (`comment_id`), ADD KEY `comment_postId` (`comment_postId`);
-
---
--- Indexes for table `posts`
---
-ALTER TABLE `posts`
- ADD PRIMARY KEY (`post_id`), ADD KEY `post_author` (`post_author`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
- ADD PRIMARY KEY (`user_id`), ADD UNIQUE KEY `user_name` (`user_name`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `comments`
---
-ALTER TABLE `comments`
-MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `posts`
---
-ALTER TABLE `posts`
-MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `comments`
---
-ALTER TABLE `comments`
-ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`comment_postId`) REFERENCES `posts` (`post_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+(1, 'test', '098f6bcd4621d373cade4e832627b4f6');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
