@@ -28,11 +28,14 @@ USE `yosemite_blog`;
 -- Структура на таблица `comments`
 --
 
+DROP TABLE IF EXISTS `comments`;
 CREATE TABLE IF NOT EXISTS `comments` (
   `comment_id` int(11) NOT NULL AUTO_INCREMENT,
   `comment_content` text NOT NULL,
   `comment_dateCreated` int(11) NOT NULL,
   `comment_postId` int(11) NOT NULL,
+  `comment_name` varchar(32) NOT NULL,
+  `comment_email` varchar(100) NOT NULL,
   PRIMARY KEY (`comment_id`),
   KEY `comment_postId` (`comment_postId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -43,6 +46,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
 -- Структура на таблица `posts`
 --
 
+DROP TABLE IF EXISTS `posts`;
 CREATE TABLE IF NOT EXISTS `posts` (
   `post_id` int(11) NOT NULL AUTO_INCREMENT,
   `post_title` varchar(50) NOT NULL,
@@ -60,10 +64,6 @@ CREATE TABLE IF NOT EXISTS `posts` (
 --
 
 INSERT INTO `posts` (`post_id`, `post_title`, `post_description`, `post_content`, `post_author`, `post_dateCreated`, `post_timesSeen`) VALUES
-(1, 'first title', 'some description', '...asd dsa', '1', 1418495551, 13),
-(2, 'another title', 'some more descripiton', 'dsadadasd', '2', 1418495596, 1),
-(4, 'henry, the third', 'asdasd', 'asdasdasd', '15', 1418581213, 3),
-(5, 'tetra', 'teraaraa', 'arara', '17', 1418582480, 17),
 (6, 'asd', 'dsa', 'dsaas', '17', 1418582485, 17),
 (7, 'asdsd', 'dsa', 'dsaas', '17', 1418582485, 17),
 (8, '123213', 'dsa', 'dsaas', '17', 1418582285, 17),
@@ -75,14 +75,45 @@ INSERT INTO `posts` (`post_id`, `post_title`, `post_description`, `post_content`
 (14, 'adhgdhadgh', 'dsa', 'dsaas', '17', 1418572485, 17),
 (15, 'adghadghagdh', 'dsa', 'dsaas', '17', 1419582485, 17),
 (16, 'aghdghagdh', 'dsa', 'dsaas', '17', 1418582485, 17),
-(17, 'ahdghagdh', 'dsa', 'dsaas', '17', 1418552485, 17),
+(17, 'ahdghagdh', 'dsa', 'dsaas', '17', 1418552485, 26),
 (18, 'ahgdagdhagh', 'dsa', 'dsaas', '17', 1418582485, 17),
 (19, 'aghaghagh', 'dsa', 'dsaas', '17', 1418582445, 17),
 (20, 'tawtwawqt', 'dsa', 'dsaas', '17', 1414582485, 17),
 (21, 'last', 'asdasd', 'asdsad', '7', 1418582638, 1),
-(22, 'antracit', 'asdasdas', 'asdadadasd', '14', 1418583730, 17),
-(33, 'mechanic', 'mechanic', '<p>mechanic</p>', 'ivzb', 1418668126, 0),
-(34, 'dasdasdas', 'dasdasd', '<p>asdasdas</p>\r\n', 'ivzb', 1418670426, 0);
+(22, 'antracit', 'asdasdas', 'asdadadasd', '14', 1418583730, 17);
+
+-- --------------------------------------------------------
+
+--
+-- Структура на таблица `posts_tags`
+--
+
+DROP TABLE IF EXISTS `posts_tags`;
+CREATE TABLE IF NOT EXISTS `posts_tags` (
+  `tag_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- РЕЛАЦИИ ЗА ТАБЛИЦА `posts_tags`:
+--   `post_id`
+--       `posts` -> `post_id`
+--   `tag_id`
+--       `tags` -> `tag_id`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Структура на таблица `tags`
+--
+
+DROP TABLE IF EXISTS `tags`;
+CREATE TABLE IF NOT EXISTS `tags` (
+  `tag_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tag_name` varchar(32) NOT NULL,
+  PRIMARY KEY (`tag_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -90,6 +121,7 @@ INSERT INTO `posts` (`post_id`, `post_title`, `post_description`, `post_content`
 -- Структура на таблица `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(11) NOT NULL,
