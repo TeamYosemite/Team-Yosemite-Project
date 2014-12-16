@@ -24,7 +24,7 @@ if (isset($_GET['id'])):
 <head>
     <title><?=$row['post_title']?></title>
 </head>
-<body>
+<body class="viewPost">
     <h1><?=$row['post_title']?></h1>
     <h2><?=$row['post_description']?></h2>
     <div><?=$row['post_content']?></div>

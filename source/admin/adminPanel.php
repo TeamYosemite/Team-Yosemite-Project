@@ -41,3 +41,6 @@ for ($r = 0; $r < count($rowP); $r++):
     endfor;
 ?>
 </table>
+<?php
+include '../templates/footer.php';
+?>
