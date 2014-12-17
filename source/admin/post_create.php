@@ -40,15 +40,22 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>
+<html>
+<head>
+    <title>Admin panel - post create</title>
+    <link rel="stylesheet" href="../styles/main.css" type="text/css"/>
+</head>
+<body class="adminPanel">
+	<?= $isError ? "<p class=\"error\">{$errorMessage}</p>" : null;?>
+	<form method="POST" id="post-form">
+		<input type="text" name="title" value="<?= $current_post['title'];?>" placeholder="Title..." />
+		<textarea name="description" placeholder="Description..."><?= $current_post['description'];?></textarea>
+		<textarea name="content" id="editor" placeholder="Content..."><?= $current_post['content'];?></textarea>
+		<input type="text" name="tags" value="<?= implode(',', $current_post['tags']);?>" placeholder="tag1, tag2" />
+		<input type="submit" value="Submit" name="submit"/>
+	</form>
 
-<?= $isError ? "<p class=\"error\">{$errorMessage}</p>" : null;?>
-<form method="POST">
-    <input type="text" name="title" value="<?= $current_post['title'];?>" placeholder="Title..." />
-    <textarea name="description" placeholder="Description..."><?= $current_post['description'];?></textarea>
-    <textarea name="content" id="editor" placeholder="Content..."><?= $current_post['content'];?></textarea>
-    <textarea name="tags" placeholder="tag1, tag2"><?= implode(',', $current_post['tags']);?></textarea>
-    <input type="submit" value="Submit" name="submit"/>
-</form>
-
-<script type="text/javascript" src="../scripts/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="../scripts/loadEditor.js"></script>
+	<script type="text/javascript" src="../scripts/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="../scripts/loadEditor.js"></script>
+</body>
+</html>

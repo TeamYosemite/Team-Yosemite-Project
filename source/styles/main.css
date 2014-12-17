@@ -139,6 +139,33 @@
 	margin-right: 25px;
 }
 
+.adminPanel #post-form input {
+    display: block;
+    margin: 10px auto;
+    width: 250px;
+    height: 35px;
+    border-radius: 4px;
+    font-size: 20px;
+}
+
+.adminPanel #post-form textarea {
+    display: block;
+    margin: 10px auto;
+    width: 250px;
+    height: 100px;
+    border-radius: 4px;
+    font-size: 20px;
+}
+
+.adminPanel #post-form #cke_editor {
+    display: block;
+    margin: 10px auto;
+    width: 600px;
+    height: 300px;
+    border-radius: 4px;
+    font-size: 20px;
+}
+
 /* -> admin panel */
 
 
