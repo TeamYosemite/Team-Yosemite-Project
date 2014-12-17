@@ -12,7 +12,7 @@ ifLoggedIn();
 require '../adminPanel.html';
 require '../config.php';
 
-$post = $db->prepare("SELECT * FROM posts");
+$post = $db->prepare("SELECT * FROM posts ORDER BY post_id DESC");
 $post->execute();
 $rowP = $post->fetchAll(PDO::FETCH_ASSOC);
 
@@ -21,11 +21,11 @@ for ($r = 0; $r < count($rowP); $r++):
 ?>
     <tr>
         <td><?=$rowData['post_title']?></td>
-        <td><?=date('d-m-Y', strtotime($rowData['post_dateCreated']))?></td>
-        <td><?=date('H:i:s', strtotime($rowData['post_dateCreated']))?></td>
-        <td><a href="post_edit.php?id=<?=$rowData['post_id']?>">Edit</a></td>
+        <td><?=date('d-m-Y', $rowData['post_dateCreated']);?></td>
+        <td><?=date('H:i:s', $rowData['post_dateCreated']);?></td>
+        <td><a href="post_edit.php?id=<?=$rowData['post_id'];?>">Edit</a></td>
         <td><a onclick="confirmDelete(<?=$rowData['post_id'];?>)" href="#">Remove</a></td>
-        <td><a href="../view_post.php?id=<?=$rowData['post_id']?>">View</a></td>
+        <td><a href="../view_post.php?id=<?=$rowData['post_id'];?>">View</a></td>
     </tr>
 
     <script>

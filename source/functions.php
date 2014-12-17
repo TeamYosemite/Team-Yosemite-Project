@@ -42,6 +42,22 @@ function load_post($id) {
 	return $post[0];
 }
 
+function load_tags($post_id) {
+	global $db;
+
+	$stmt = $db->prepare("SELECT tags.tag_name FROM tags INNER JOIN posts_tags ON posts_tags.tag_id = tags.tag_id WHERE posts_tags.post_id = :post_id");
+    $stmt->bindParam('post_id', $post_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $row_tags = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	$tags = [];
+	
+	foreach($row_tags as $tag) {
+		$tags[] = $tag['tag_name'];
+	}
+	
+	return $tags;
+}
+
 function ifLoggedIn(){
    if(!(isset($_SESSION['is_logged'])) || $_SESSION['is_logged'] == false) {
         header('Location: ../index.php');
@@ -57,8 +73,12 @@ function isPostValid($title, $description, $content, $tags) {
 		throw new Exception('Please enter valid description!');
 	}
 	
-	if(!preg_match('/^.{2,3000}$/', $content)) {
+	if(strlen($content) == 0) {
 		throw new Exception('Please enter valid content!');
+	}
+	
+	if(count($tags) == 0 || $tags[0] == '') {
+		throw new Exception('Please enter at least one tag!');
 	}
 	
 	foreach($tags as $tag) {
@@ -118,7 +138,7 @@ function createTags($tags, $post_id) {
 	
 	foreach($tags as $tag) {
 		$stmt = $db->prepare('INSERT INTO `tags` (`tag_name`) VALUES (:tagName)');
-		$stmt->bindParam(':tagName', $tag, PDO::PARAM_STR);
+		$stmt->bindParam(':tagName', trim($tag), PDO::PARAM_STR);
 		$stmt->execute();
 		
 		$tag_id = $db->lastInsertId();
@@ -128,6 +148,31 @@ function createTags($tags, $post_id) {
 		$stmt->bindParam(':postId', $post_id, PDO::PARAM_INT);
 		$stmt->execute();
 	}
+}
+
+function updateTags($tags, $post_id) {
+	deleteTags($tags, $post_id);
+	createTags($tags, $post_id);
+}
+
+function deleteTags($tags, $post_id) {
+	global $db;
+	
+	$stmt = $db->prepare('SELECT * FROM `posts_tags` WHERE `post_id` = :post_id');
+	$stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+	$stmt->execute();
+	
+	$tags = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	
+	foreach($tags as $tag) {
+		$stmt = $db->prepare('DELETE FROM `tags` WHERE `tag_id` = :tag_id');
+		$stmt->bindParam(':tag_id', $tag['tag_id'], PDO::PARAM_INT);
+		$stmt->execute();
+	}
+	
+	$stmt = $db->prepare('DELETE FROM `posts_tags` WHERE `post_id` = :post_id');
+	$stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+	$stmt->execute();
 }
 
 function validateUserData($user_name, $password) {
@@ -140,7 +185,7 @@ function validateUserData($user_name, $password) {
 	}
 }
 
-function validateLogin($user_name) {
+function validateLogin($user_name, $password) {
 	global $db;
 
 	$stmt = $db->prepare("SELECT `user_id`, `user_password` FROM `users` WHERE `user_name` = :user_name");
@@ -152,7 +197,7 @@ function validateLogin($user_name) {
 		throw new Exception('There is no such user!');
 	}
 	
-	if($password != $user['user_password']) {
+	if($password != $user[0]['user_password']) {
 		throw new Exception('Wrong password!');
 	}
 }

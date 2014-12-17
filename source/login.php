@@ -12,7 +12,7 @@ if (isset($_POST['submit'])) {
 
 	try {
 		validateUserData($user_name, $password);
-		validateLogin($user_name);
+		validateLogin($user_name, $password);
 		
 		$_SESSION['username'] = $user_name;
 		$_SESSION['is_logged'] = true;
