@@ -127,6 +127,31 @@ function load_tags($post_id) {
 	return $tags;
 }
 
+function load_posts_by_tags($tags) {
+	global $db;
+	
+	$posts = [];
+	
+	foreach($tags as $tag) {
+		$stmt = $db->prepare("SELECT *
+		FROM (`posts`)
+		LEFT JOIN `posts_tags` ON `posts_tags`.`post_id` = `posts`.`post_id`
+		LEFT JOIN `tags` ON `posts_tags`.`tag_id` = `tags`.`tag_id`
+		WHERE `tag_name` LIKE :tag_name");
+		$stmt->bindParam('tag_name', $tag, PDO::PARAM_STR);
+		$stmt->execute();
+		$row_posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		
+		if(!empty($row_posts)) {
+			foreach($row_posts as $post) {
+				$posts[] = $post;
+			}
+		}
+	}
+	
+	return $posts;
+}
+
 function load_comments($post_id) {
 	global $db;
 

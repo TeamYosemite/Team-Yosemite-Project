@@ -17,7 +17,12 @@ include 'templates/header.php';
 	?>
 
 	<main class="clearfix">
-	<aside></aside>
+		<aside>
+			<form method="GET" action="search.php" id="search">
+				<input type="text" name="search" placeholder="Search..." />
+				<input type="submit" value="Search" />
+			</form>
+		</aside>
 		<?php foreach($data['posts'] as $post):?>
 			<article>
 				<h3><a href="view_post.php?id=<?= $post['post_id'];?>"><?= $post['post_title'];?></a></h3>
@@ -29,11 +34,11 @@ include 'templates/header.php';
 		<?php endforeach;?>
 	</main>
 
-<?php
-	$totalPages = $data['totalPages'];
-	$previouslink = ($page > 1) ? '<a href="?page=1" title="First page">&laquo;</a> <a href="?page=' . ($page - 1) . '" title="Previous page">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
-	$nextlink = ($page < $totalPages) ? '<a href="?page=' . ($page + 1) . '" title="Next page">&rsaquo;</a> <a href="?page=' . $totalPages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
-?>
+	<?php
+		$totalPages = $data['totalPages'];
+		$previouslink = ($page > 1) ? '<a href="?page=1" title="First page">&laquo;</a> <a href="?page=' . ($page - 1) . '" title="Previous page">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
+		$nextlink = ($page < $totalPages) ? '<a href="?page=' . ($page + 1) . '" title="Next page">&rsaquo;</a> <a href="?page=' . $totalPages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
+	?>
 	<div id="paging">
 		<p>
 			<?= $previouslink;?>
