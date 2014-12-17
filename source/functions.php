@@ -179,7 +179,7 @@ function isPostValid($title, $description, $content, $tags) {
 		throw new Exception('Please enter valid title!');
 	}
 	
-	if(!preg_match('/^[^\s][\w\d\s!\.,;#$?@%&\(\)]{2,255}$/', $description)) {
+	if(!preg_match('/^.{2,500}$/', $description)) {
 		throw new Exception('Please enter valid description!');
 	}
 	
@@ -306,6 +306,17 @@ function createComment($name, $email, $content, $post_id) {
 	$stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
 	$stmt->bindParam(':date_created', $date_created, PDO::PARAM_INT);
 	$stmt->execute();
+}
+
+function countPostComments($post_id) {
+	global $db;
+	
+	$stmt = $db->prepare("SELECT COUNT(*) as count FROM `comments` WHERE `comment_postId` = :post_id");
+    $stmt->bindParam('post_id', $post_id, PDO::PARAM_INT);
+    $stmt->execute();
+	$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	
+	return $result[0]['count'];
 }
 
 function validComment($name, $email, $comment) {

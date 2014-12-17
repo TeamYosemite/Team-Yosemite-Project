@@ -1,4 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic,latin-ext);
+@import url(http://fonts.googleapis.com/css?family=Lato);
+@import url(http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css);
 
 @font-face {
     font-family: ClearSans;
@@ -46,6 +48,7 @@
     box-sizing: border-box;
     width: 1024px;
     margin: 0 auto;
+	font-family: "Lato", serif;
 }
 
 .indexPage article {
@@ -58,6 +61,70 @@
     background-color: white;
     box-shadow: 0 0 5px lightgrey;
 }
+
+	.indexPage article .title {
+		margin: 0;
+		padding: 0;
+		font-size: 38.5px;
+		font-weight: normal;
+		line-height: 100%;
+		margin-bottom: 20px;
+	}
+
+	.indexPage article .meta {
+		color: #9a9a9a;
+		font-size: 85%;
+	}
+		.indexPage article .meta .clock,
+		.indexPage article .meta .user,
+		.indexPage article .meta .comments {
+			font-family: FontAwesome;
+			font-style: normal;
+			font-weight: normal;
+			line-height: 1;
+			-webkit-font-smoothing: antialiased;
+		}
+		
+		.indexPage article .meta .clock:before {
+			content: "\f017";
+			padding-right: 4px;
+		}
+
+		.indexPage article .meta .user:before {
+			content: "\f007";
+			padding-right: 4px;
+		}
+
+		.indexPage article .meta .comments:before {
+			content: "\f086";
+			padding-right: 4px;
+		}
+
+	.indexPage article .description {
+		color: #7e7e7e;
+		font-size: 18px;
+		font-weight: 300;
+		line-height: 1.75;
+	}
+
+	.indexPage article .read-more {
+		display: block;
+		font-size: 18px;
+		padding: 10px 20px;
+		width: 94%;
+		color: #636363;
+		letter-spacing: 0.5px;
+		border: 1px solid #4ECDC4;
+		margin-top: 13px;
+		margin-bottom: 12px;
+		text-align: center;
+		text-decoration: none;
+	}
+
+	.indexPage article .read-more:hover {
+		background: #4ECDC4;
+		color: #fff;
+	}
 
 .indexPage aside {
     display: inline-block;
