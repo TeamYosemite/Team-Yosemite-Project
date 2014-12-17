@@ -33,7 +33,7 @@ include 'templates/header.php';
 				</p>
 				<p class="description"><?= htmlentities($post['post_description']);?></p>
 				<a href="view_post.php?id=<?= $post['post_id'];?>" class="read-more">Read more</a>
-				<p class="meta">Tags: <?= htmlentities(implode(', ', load_tags($post['post_id'])));?></p>
+				<p class="meta"><span class="tags"><?= htmlentities(implode(', ', load_tags($post['post_id'])));?></span></p>
 			</article>
 		<?php endforeach;?>
 

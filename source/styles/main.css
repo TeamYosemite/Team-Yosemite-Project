@@ -55,12 +55,17 @@
     display: block;
     float: left;
     padding: 20px;
+	padding-bottom: 0;
     margin-bottom: 20px;
     width: 650px;
     min-height: 200px;
     background-color: white;
     box-shadow: 0 0 5px lightgrey;
 }
+
+	.indexPage article.main-post {
+		width: 943px;
+	}
 
 	.indexPage article .title {
 		margin: 0;
@@ -71,13 +76,26 @@
 		margin-bottom: 20px;
 	}
 
+	.indexPage article .content {
+		color: #333;
+		font-family: Arial, sans-serif;
+		font-size: 13px;
+		line-height: 20px;
+		margin: 0px;
+		padding: 0px;
+		text-align: justify;
+		vertical-align: baseline;
+	}
+
 	.indexPage article .meta {
 		color: #9a9a9a;
 		font-size: 85%;
 	}
 		.indexPage article .meta .clock,
 		.indexPage article .meta .user,
-		.indexPage article .meta .comments {
+		.indexPage article .meta .comments,
+		.indexPage article .meta .tags ,
+		.indexPage article .meta .views {
 			font-family: FontAwesome;
 			font-style: normal;
 			font-weight: normal;
@@ -97,6 +115,16 @@
 
 		.indexPage article .meta .comments:before {
 			content: "\f086";
+			padding-right: 4px;
+		}
+
+		.indexPage article .meta .tags:before {
+			content: "\f02c";
+			padding-right: 4px;
+		}
+
+		.indexPage article .meta .views:before {
+			content: "\f06e";
 			padding-right: 4px;
 		}
 
@@ -125,6 +153,56 @@
 		background: #4ECDC4;
 		color: #fff;
 	}
+
+	.indexPage article .comments-count {
+		background: #4ECDC4;
+		display: inline-block;
+		padding: 10px;
+		margin: 0;
+	}
+	
+		.indexPage article .add-comment {
+			border: 1px solid #ddd;
+			background: #f9f9f9;
+			padding: 10px;
+			margin: 12px 0;
+		}
+	
+			.indexPage article .add-comment input,
+			.indexPage article .add-comment textarea {
+				display: block;
+			}
+	
+			.indexPage article .add-comment input {
+				width: 350px;
+				margin: 5px auto;
+				padding: 5px;
+			}
+	
+			.indexPage article .add-comment textarea {
+				width: 350px;
+				height: 150px;
+				margin: 0 auto;
+				padding: 5px;
+			}
+	
+		.indexPage article .comment {
+			border: 1px solid #ddd;
+			background: #f9f9f9;
+			padding: 10px;
+			margin: 12px 0;
+		}
+	
+			.indexPage article .comment  {
+				border: 1px solid #ddd;
+				background: #f9f9f9;
+				padding: 10px;
+			}
+	
+			.indexPage article .comment #comment-header .name  {
+				font-weight: bold;
+				color: #4ECDC4;
+			}
 
 .indexPage aside {
     display: inline-block;

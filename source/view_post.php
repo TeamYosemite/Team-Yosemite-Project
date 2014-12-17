@@ -27,33 +27,52 @@ else {
 }
 ?>
 
-<body class="viewPost">
-	<section id="post">
-		<h1 class="title"><?= $post['post_title'];?></h1>
-		<h2 class="description"><?= $post['post_description'];?></h2>
-		<div class="content"><?= $post['post_content'];?></div>
+<body class="indexPage">
+	<header>
+		<p>A blog about Beautiful Bulgaria</p>
+	</header>
+	
+	<main class="clearfix">
+		<article class="main-post">
+			<h1 class="title"><?= $post['post_title'];?></h1>
+			<p class="meta">
+				<span class="clock"><?= date('D, j M Y', $post['post_dateCreated']);?></span> / 
+				<span class="user"><?= htmlentities($post['post_author']);?></span> / 
+				<span class="comments"><?= countPostComments($post['post_id']);?> comments</span>
+			</p>
 		
-		<p class="published">Published on <?= date('d/m/y', $post['post_dateCreated']);?></p>
-		<p class="author">Author: <?= $post['post_author'];?></p>
-		<p class="tags">Tags: <?= implode(', ', $tags);?></p>
-		<p class="visits">Visits: <?= $post['post_timesSeen'];?></p>
-	</section>
+			<h2 class="description"><?= $post['post_description'];?></h2>
+			<div class="content"><?= $post['post_content'];?></div>
+			
+			<p class="meta">
+				<span class="tags"><?= htmlentities(implode(', ', load_tags($post['post_id'])));?></span> /
+				<span class="views"><?= $post['post_timesSeen'];?></span>
+			</p>
+		</article>
 	
-	<?php foreach($comments as $comment): ?>
-			<article>
-				<p class="name"><?= $comment['comment_name'];?></p>
-				<p class="published"><?= date('d-m-Y H:i:s', $comment['comment_dateCreated']);?></p>
-				<p class="content"><?= $comment['comment_content'];?></p>
-			</article>
-	<?php endforeach; ?>
+		<article>
+		
+		<h4 class="comments-count"><?= count($comments);?> comment(s):</h4>
+		
+		<?php foreach($comments as $comment): ?>
+				<div class="comment">
+					<div id="comment-header">
+						<span class="name"><?= $comment['comment_name'];?></span>
+						<span class="published"><?= date('D, j M Y, H:i:s', $comment['comment_dateCreated']);?></span>
+					</div>
+					<p><?= $comment['comment_content'];?></p>
+				</div>
+		<?php endforeach; ?>
 	
-	<form method="post" action="add_comment.php">
-		<input type="text" name="name" placeholder="Your name">
-		<input type="text" name="email" placeholder="E-mail">
-		<textarea name="comment"></textarea>
-		<input type="hidden" value="<?= $post_id;?>" name="post_id">
-		<input type="submit" name="submit">
-	</form>
+			<form method="post" action="add_comment.php" class="add-comment">
+				<input type="text" name="name" placeholder="Your name">
+				<input type="text" name="email" placeholder="E-mail">
+				<textarea name="comment"></textarea>
+				<input type="hidden" value="<?= $post_id;?>" name="post_id">
+				<input type="submit" name="submit">
+			</form>
+		</article>
+	</main>
 </body>
 
 <?php
