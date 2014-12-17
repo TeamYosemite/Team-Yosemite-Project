@@ -38,7 +38,14 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `comment_email` varchar(100) NOT NULL,
   PRIMARY KEY (`comment_id`),
   KEY `comment_postId` (`comment_postId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Схема на данните от таблица `comments`
+--
+
+INSERT INTO `comments` (`comment_id`, `comment_content`, `comment_dateCreated`, `comment_postId`, `comment_name`, `comment_email`) VALUES
+(1, 'asdasdas', 0, 37, 'ivan', 'izaha@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -57,14 +64,14 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `post_timesSeen` int(11) NOT NULL,
   PRIMARY KEY (`post_id`),
   KEY `post_author` (`post_author`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=43 ;
 
 --
 -- Схема на данните от таблица `posts`
 --
 
 INSERT INTO `posts` (`post_id`, `post_title`, `post_description`, `post_content`, `post_author`, `post_dateCreated`, `post_timesSeen`) VALUES
-(6, 'asd', 'dsa', 'dsaas', '17', 1418582485, 17),
+(6, 'asd', 'dsa', '<p>dsaas2</p>\r\n', '17', 1418582485, 17),
 (7, 'asdsd', 'dsa', 'dsaas', '17', 1418582485, 17),
 (8, '123213', 'dsa', 'dsaas', '17', 1418582285, 17),
 (9, 'asaasdg', 'dsa', 'dsaas', '17', 1418582485, 17),
@@ -80,7 +87,14 @@ INSERT INTO `posts` (`post_id`, `post_title`, `post_description`, `post_content`
 (19, 'aghaghagh', 'dsa', 'dsaas', '17', 1418582445, 17),
 (20, 'tawtwawqt', 'dsa', 'dsaas', '17', 1414582485, 17),
 (21, 'last', 'asdasd', 'asdsad', '7', 1418582638, 1),
-(22, 'antracit', 'asdasdas', 'asdadadasd', '14', 1418583730, 17);
+(22, 'antracit', 'asdasdas', 'asdadadasd', '14', 1418583730, 17),
+(35, 'asdasdas', 'dasdasdasd', '<p>asdasdsa</p>\r\n', 'test', 1418763618, 0),
+(36, 'asdasdas', 'dasdasdasd', '<p>asdasdsa</p>\r\n', 'test', 1418763640, 1),
+(37, 'asdasdas', 'dasdasdasd', '<p>asdasdsa2</p>\r\n', 'test', 1418763786, 2),
+(38, 'habala babala', 'habala babala', '<p><strong>habala babala</strong></p>\r\n\r\n<p><em>habala babala1</em></p>\r\n', 'test', 1418826394, 41),
+(39, 'asdasd', 'asdasda', '<p>sdasdasdasd23</p>\r\n', 'test', 1418826873, 5),
+(41, 'dasdasd', 'asdasdasdas', '<p>asdasdasdas</p>\r\n', 'test', 1418829366, 0),
+(42, 'dasdasd', 'asdasdasdas', '<p>asdasdasdas2</p>\r\n', 'test', 1418829378, 0);
 
 -- --------------------------------------------------------
 
@@ -95,12 +109,19 @@ CREATE TABLE IF NOT EXISTS `posts_tags` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- РЕЛАЦИИ ЗА ТАБЛИЦА `posts_tags`:
---   `post_id`
---       `posts` -> `post_id`
---   `tag_id`
---       `tags` -> `tag_id`
+-- Схема на данните от таблица `posts_tags`
 --
+
+INSERT INTO `posts_tags` (`tag_id`, `post_id`) VALUES
+(1, 37),
+(2, 37),
+(3, 37),
+(4, 37),
+(8, 40),
+(15, 38),
+(16, 39),
+(17, 41),
+(19, 42);
 
 -- --------------------------------------------------------
 
@@ -113,7 +134,22 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `tag_id` int(11) NOT NULL AUTO_INCREMENT,
   `tag_name` varchar(32) NOT NULL,
   PRIMARY KEY (`tag_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+
+--
+-- Схема на данните от таблица `tags`
+--
+
+INSERT INTO `tags` (`tag_id`, `tag_name`) VALUES
+(1, 'asd'),
+(2, 'dsa'),
+(3, 'asd'),
+(4, 'dsad2'),
+(8, 'tag2'),
+(15, 'habala'),
+(16, 'tag3'),
+(17, 'dasdasda'),
+(19, 'dasdasda');
 
 -- --------------------------------------------------------
 
