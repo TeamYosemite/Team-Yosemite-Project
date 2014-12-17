@@ -22,7 +22,8 @@ if (isset($_POST['submit'])) {
     if($isValidUser) {
 		$user_id = getLastUserId();
 		$user_id = $user_id['user_id'];
-        createUser($userId, $user_name, $password);
+		$user_id = $user_id + 1;
+        createUser($user_id, $user_name, $password);
 		
 		header('Location: users_overview.php');
 		exit;

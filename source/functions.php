@@ -11,7 +11,7 @@ function isUserValid($name, $password) {
 function getLastUserId() {
 	global $db;
 	
-	$stmt = $db->prepare("SELECT `user_id` FROM `users` ORDER BY `post_id` DESC LIMIT 1");
+	$stmt = $db->prepare("SELECT `user_id` FROM `users` ORDER BY `user_id` DESC LIMIT 1");
     $stmt->execute();
     $id = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	
@@ -26,7 +26,7 @@ function createUser($id, $name, $password) {
 	$stmt = $db->prepare('INSERT INTO `users` (`user_id`, `user_name`, `user_password`) VALUES (:id, :name, :password)');
     $stmt->bindParam(':id', $id, PDO::PARAM_STR);
     $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-    $stmt->bindParam(':password', $content, PDO::PARAM_STR);
+    $stmt->bindParam(':password', $password, PDO::PARAM_STR);
     $stmt->execute();
 }
 
