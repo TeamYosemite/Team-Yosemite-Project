@@ -33,7 +33,7 @@ function createUser($id, $name, $password) {
 function deleteUser($id) {
 	global $db;
 	
-	$stmt = $db->prepare("DELETE FROM `users` WHERE `post_id` = :id");
+	$stmt = $db->prepare("DELETE FROM `users` WHERE `user_id` = :id");
 	$stmt->bindParam('id', $id, PDO::PARAM_INT);
 	$stmt->execute();
 }
