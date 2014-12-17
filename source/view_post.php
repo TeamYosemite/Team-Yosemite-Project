@@ -1,63 +1,61 @@
 <?php
+
 include 'config.php';
-if (isset($_GET['id'])):
-    $id = $_GET['id'];
-    $stmt = $db->prepare("SELECT * FROM posts WHERE post_id = :id");
-    $stmt->bindParam('id', $id, PDO::PARAM_STR);
-    $stmt->execute();
-    $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $row = $row[0];
+include 'functions.php';
+include 'templates/header.php';
 
-    $users = $db->prepare("SELECT * FROM users  WHERE user_id = :uid");
-    $users->bindParam('uid', $row['post_author'], PDO::PARAM_STR);
-    $users->execute();
-    $user = $users->fetchAll();
-   $user = $user[0][1];
-
-    $posts = $db->prepare("SELECT * FROM comments  WHERE comment_postid = :postid");
-    $posts->bindParam('postid', $row['post_id'], PDO::PARAM_STR);
-    $posts->execute();
-    $posts = $posts->fetchAll(PDO::FETCH_ASSOC);
-
-?>
-<!DOCTYPE>
-<html>
-<head>
-    <title><?=$row['post_title']?></title>
-</head>
-<body class="viewPost">
-    <h1><?=$row['post_title']?></h1>
-    <h2><?=$row['post_description']?></h2>
-    <div><?=$row['post_content']?></div>
-    <div>Published on <?=date('d/m/y') ?></div>
-    <div>Author: <?=$user?></div>
-    <div>Visits: <?=$row['post_timesSeen']?></div>
-<?php
-    for ($p = 0; $p < count($posts); $p++) {
-        $comment = $posts[$p]['comment_content'];
-        echo "<section>";
-        echo "<div>$comment</div>";
-        echo "</section>";
+if(isset($_GET['id']) && is_numeric($_GET['id'])) {
+	$post_id = $_GET['id'];
+	$post = '';
+	$comments = [];
+	$tags = [];
+	
+	try {
+		$post = load_post($post_id);
+		$comments = load_comments($post_id);
+		$tags = load_tags($post_id);
+		updatePostView($post_id, $post['post_timesSeen'] + 1);
+	}
+	catch(Exception $e) {
+		header('Location: index.php');
+		exit;
     }
+}
+else {
+	header('Location: index.php');
+	exit;
+}
 ?>
 
-<form method="post" action="admin/addComment.php">
-    <input type="text" name="name" placeholder="Your name">
-    <input type="text" name="email" placeholder="E-mail">
-    <textarea name="comment"></textarea>
-    <input type="hidden" value="<?=$id?>" name="id">
-    <input type="submit" name="submit">
-</form>
+<body class="viewPost">
+	<section id="post">
+		<h1 class="title"><?= $post['post_title'];?></h1>
+		<h2 class="description"><?= $post['post_description'];?></h2>
+		<div class="content"><?= $post['post_content'];?></div>
+		
+		<p class="published">Published on <?= date('d/m/y', $post['post_dateCreated']);?></p>
+		<p class="author">Author: <?= $post['post_author'];?></p>
+		<p class="tags">Tags: <?= implode(', ', $tags);?></p>
+		<p class="visits">Visits: <?= $post['post_timesSeen'];?></p>
+	</section>
+	
+	<?php foreach($comments as $comment): ?>
+			<article>
+				<p class="name"><?= $comment['comment_name'];?></p>
+				<p class="published"><?= date('d-m-Y H:i:s', $comment['comment_dateCreated']);?></p>
+				<p class="content"><?= $comment['comment_content'];?></p>
+			</article>
+	<?php endforeach; ?>
+	
+	<form method="post" action="add_comment.php">
+		<input type="text" name="name" placeholder="Your name">
+		<input type="text" name="email" placeholder="E-mail">
+		<textarea name="comment"></textarea>
+		<input type="hidden" value="<?= $post_id;?>" name="post_id">
+		<input type="submit" name="submit">
+	</form>
 </body>
-</html>
+
 <?php
-    $visits = $row['post_timesSeen'] + 1;
-    endif;
 
-$stmt = $db->prepare("UPDATE posts SET post_timesSeen =:visits WHERE post_id = :id");
-$stmt->bindParam('visits', $visits, PDO::PARAM_STR);
-$stmt->bindParam('id', $id, PDO::PARAM_STR);
-$stmt->execute();
-
-
-?>
+include 'templates/footer.php';

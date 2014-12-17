@@ -22,8 +22,9 @@ include 'templates/header.php';
 			<article>
 				<h3><a href="view_post.php?id=<?= $post['post_id'];?>"><?= $post['post_title'];?></a></h3>
 				<p><?= $post['post_description'];?></p>
+				<p>Tags: <?= implode(', ', load_tags($post['post_id']));?></p>
 				<p><a href="view_post.php?id=<?= $post['post_id'];?>">Read more</a></p>
-				<p>Posted on <?= date('d-m-Y H:i:s', strtotime($post['post_dateCreated']));?></p>
+				<p>Posted on <?= date('d-m-Y H:i:s', $post['post_dateCreated']);?></p>
 			</article>
 		<?php endforeach;?>
 	</main>

@@ -127,6 +127,22 @@ function load_tags($post_id) {
 	return $tags;
 }
 
+function load_comments($post_id) {
+	global $db;
+
+	$stmt = $db->prepare("SELECT * FROM comments  WHERE comment_postid = :post_id ORDER BY `comment_dateCreated` DESC");
+    $stmt->bindParam('post_id', $post_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $row_comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	$comments = [];
+	
+	foreach($row_comments as $comment) {
+		$comments[] = $comment;
+	}
+	
+	return $comments;
+}
+
 function ifLoggedIn(){
    if(!(isset($_SESSION['is_logged'])) || $_SESSION['is_logged'] == false) {
         header('Location: ../index.php');
@@ -202,6 +218,15 @@ function updatePost($id, $title, $description, $content) {
     $stmt->execute();
 }
 
+function updatePostView($post_id, $views) {
+	global $db;
+	
+	$stmt = $db->prepare('UPDATE `posts` SET `post_timesSeen` = :views WHERE `post_id` = :post_id');
+    $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+    $stmt->bindParam(':views', $views, PDO::PARAM_INT);
+    $stmt->execute();
+}
+
 function createTags($tags, $post_id) {
 	global $db;
 	
@@ -242,6 +267,37 @@ function deleteTags($tags, $post_id) {
 	$stmt = $db->prepare('DELETE FROM `posts_tags` WHERE `post_id` = :post_id');
 	$stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
 	$stmt->execute();
+}
+
+function createComment($name, $email, $content, $post_id) {
+	global $db;
+	
+	$date_created = time();
+	
+	$stmt = $db->prepare("INSERT INTO comments (comment_name, comment_email, comment_content, comment_postId, comment_dateCreated) VALUES (:name, :email, :content, :post_id, :date_created)");
+	$stmt->bindParam(':name', $name, PDO::PARAM_STR);
+	$stmt->bindParam(':email', $email, PDO::PARAM_STR);
+	$stmt->bindParam(':content', $content, PDO::PARAM_STR);
+	$stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+	$stmt->bindParam(':date_created', $date_created, PDO::PARAM_INT);
+	$stmt->execute();
+}
+
+function validComment($name, $email, $comment) {
+	if(strlen($name) == 0) {
+		return false;
+	}
+	
+	if(strlen($email) == 0) {
+		return false;
+	}
+	
+	if(strlen($comment) == 0) {
+		return false;
+	}
+	
+
+	return true;
 }
 
 function validateUserData($user_name, $password) {
