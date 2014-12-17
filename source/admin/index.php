@@ -34,6 +34,8 @@ ifLoggedIn();
 				<td><a href="../view_post.php?id=<?=$post['post_id'];?>">View</a></td>
 			</tr>
 		<?php endforeach;?>
-</table>
+	</table>
+	
+	<script type='text/javascript' src='../scripts/postDeleteConfirm.js'></script>
 </body>
 </html>
