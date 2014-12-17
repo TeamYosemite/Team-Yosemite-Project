@@ -35,7 +35,7 @@ if (isset($_POST['submit'])) {
 		$post_id = $post_id['post_id'];
         createTags($current_post['tags'], $post_id);
 		
-		header('Location: adminPanel.php');
+		header('Location: index.php');
 		exit;
     }
 }

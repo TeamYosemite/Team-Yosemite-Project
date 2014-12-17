@@ -10,5 +10,5 @@ if(is_numeric($id)) {
 	deletePost($id);
 }
 
-header('Location: adminPanel.php');
+header('Location: index.php');
 exit;

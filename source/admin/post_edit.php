@@ -34,7 +34,7 @@ if(isset($_POST['submit'])) {
         updatePost($current_post['id'], $current_post['title'], $current_post['description'], $current_post['content'], $current_post['tags']);
         updateTags($current_post['tags'], $current_post['id']);
 		
-		header('Location: adminPanel.php');
+		header('Location: index.php');
 		exit();
     }
 }
@@ -51,7 +51,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 	$current_post['tags'] = $tags_data;
 }
 else {
-	header('Location: adminPanel.php');
+	header('Location: index.php');
 	exit;
 }
 ?>

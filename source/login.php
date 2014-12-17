@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
 		$_SESSION['username'] = $user_name;
 		$_SESSION['is_logged'] = true;
 		
-		header('Location: admin/adminPanel.php');
+		header('Location: admin/');
 		exit;
 	} catch(Exception $e) {
         $isError = true;

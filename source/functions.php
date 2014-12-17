@@ -27,6 +27,21 @@ function load_posts($page) {
 	return [ 'posts' => $posts, 'totalPages' => $allPages ];
 }
 
+function load_all_posts() {
+	global $db;
+	
+	$posts = [];
+	
+	$stmt = $db->prepare('SELECT * FROM `posts` ORDER BY post_id DESC');
+    $stmt->execute();
+	
+	while($row = $stmt->fetch()) {
+		$posts[] = $row;
+	}
+	
+	return $posts;
+}
+
 function load_post($id) {
 	global $db;
 
