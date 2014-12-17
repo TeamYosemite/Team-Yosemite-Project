@@ -137,6 +137,29 @@
 
 }
 
+.indexPage #paging {
+    min-height: 50px;
+	text-align: center;
+	font-size: 18px;
+}
+
+	.indexPage #paging span {
+		padding: 0 10px;
+	}
+	
+	.indexPage #paging a {
+		border: 1px solid #4ECDC4;
+		padding: 10px 15px;
+		margin: 0 5px;
+		text-decoration: none;
+		color: #636363;
+	}
+
+	.indexPage #paging a:hover {
+		background: #4ECDC4;
+		color: #fff;
+	}
+
  footer {
     position: relative;
     background: linear-gradient(to bottom, #83a234 0%, #58732b 50%);
@@ -155,7 +178,7 @@
     font-family: Tahoma, sans-serif;
     font-size: 24px;
 }
-
+/*
 .indexPage #paging {
     box-sizing: border-box;
     height: 30px;
@@ -204,33 +227,6 @@
 .adminPanel .menu li {
 	display: inline-block;
 	margin-right: 25px;
-}
-
-.adminPanel #post-form input {
-    display: block;
-    margin: 10px auto;
-    width: 250px;
-    height: 35px;
-    border-radius: 4px;
-    font-size: 20px;
-}
-
-.adminPanel #post-form textarea {
-    display: block;
-    margin: 10px auto;
-    width: 250px;
-    height: 100px;
-    border-radius: 4px;
-    font-size: 20px;
-}
-
-.adminPanel #post-form #cke_editor {
-    display: block;
-    margin: 10px auto;
-    width: 600px;
-    height: 300px;
-    border-radius: 4px;
-    font-size: 20px;
 }
 
 /* -> admin panel */
@@ -285,7 +281,32 @@
 }
 
 /* post create -> */
+.adminPanel #post-form input {
+    display: block;
+    margin: 10px auto;
+    width: 600px;
+    height: 35px;
+    border-radius: 4px;
+    font-size: 20px;
+}
 
+.adminPanel #post-form textarea {
+    display: block;
+    margin: 10px auto;
+    width: 600px;
+    height: 100px;
+    border-radius: 4px;
+    font-size: 20px;
+}
+
+.adminPanel #post-form #cke_editor {
+    display: block;
+    margin: 10px auto;
+    width: 600px;
+    height: 300px;
+    border-radius: 4px;
+    font-size: 20px;
+}
 
 
 /* -> post create */

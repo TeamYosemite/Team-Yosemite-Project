@@ -25,31 +25,31 @@ include 'templates/header.php';
 		</aside>
 		<?php foreach($data['posts'] as $post):?>
 			<article>
-				<h3 class="title"><?= $post['post_title'];?></h3>
+				<h3 class="title"><?= htmlentities($post['post_title']);?></h3>
 				<p class="meta">
 					<span class="clock"><?= date('D, j M Y', $post['post_dateCreated']);?></span> / 
-					<span class="user"><?= $post['post_author'];?></span> / 
+					<span class="user"><?= htmlentities($post['post_author']);?></span> / 
 					<span class="comments"><?= countPostComments($post['post_id']);?> comments</span>
 				</p>
-				<p class="description"><?= $post['post_description'];?></p>
+				<p class="description"><?= htmlentities($post['post_description']);?></p>
 				<a href="view_post.php?id=<?= $post['post_id'];?>" class="read-more">Read more</a>
-				<p class="meta">Tags: <?= implode(', ', load_tags($post['post_id']));?></p>
+				<p class="meta">Tags: <?= htmlentities(implode(', ', load_tags($post['post_id'])));?></p>
 			</article>
 		<?php endforeach;?>
-	</main>
 
-	<?php
-		$totalPages = $data['totalPages'];
-		$previouslink = ($page > 1) ? '<a href="?page=1" title="First page">&laquo;</a> <a href="?page=' . ($page - 1) . '" title="Previous page">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
-		$nextlink = ($page < $totalPages) ? '<a href="?page=' . ($page + 1) . '" title="Next page">&rsaquo;</a> <a href="?page=' . $totalPages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
-	?>
-	<div id="paging">
-		<p>
-			<?= $previouslink;?>
-			Page <?= $page;?> of <?= $totalPages;?>
-			<?= $nextlink;?>
-		</p>
-	</div>
+		<?php
+			$totalPages = $data['totalPages'];
+			$previouslink = ($page > 1) ? '<a href="?page=1" title="First page">&laquo;</a> <a href="?page=' . ($page - 1) . '" title="Previous page">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
+			$nextlink = ($page < $totalPages) ? '<a href="?page=' . ($page + 1) . '" title="Next page">&rsaquo;</a> <a href="?page=' . $totalPages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
+		?>
+		<article id="paging">
+			<p>
+				<?= $previouslink;?>
+				<span>Page <?= $page;?> of <?= $totalPages;?></span>
+				<?= $nextlink;?>
+			</p>
+		</article>
+	</main>
 <?php
 
 include 'templates/footer.php';
