@@ -1,5 +1,59 @@
 <?php
 
+function isUserValid($name, $password) {
+	if(!preg_match('/^[^\s][\w\d\s!\.,;#$?@%&\(\)]{2,50}$/', $name)) {
+		throw new Exception('Please enter valid name!');
+	}
+	
+	return true;
+}
+
+function getLastUserId() {
+	global $db;
+	
+	$stmt = $db->prepare("SELECT `user_id` FROM `users` ORDER BY `post_id` DESC LIMIT 1");
+    $stmt->execute();
+    $id = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	
+	$last_id = $id[0];
+	
+	return $last_id;
+}
+
+function createUser($id, $name, $password) {
+	global $db;
+
+	$stmt = $db->prepare('INSERT INTO `users` (`user_id`, `user_name`, `user_password`) VALUES (:id, :name, :password)');
+    $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+    $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+    $stmt->bindParam(':password', $content, PDO::PARAM_STR);
+    $stmt->execute();
+}
+
+function deleteUser($id) {
+	global $db;
+	
+	$stmt = $db->prepare("DELETE FROM `users` WHERE `post_id` = :id");
+	$stmt->bindParam('id', $id, PDO::PARAM_INT);
+	$stmt->execute();
+}
+
+function load_all_users()
+{
+	global $db;
+	
+	$users = [];
+	
+	$stmt = $db->prepare('SELECT * FROM `users`');
+    $stmt->execute();
+	
+	while($row = $stmt->fetch()) {
+		$users[] = $row;
+	}
+	
+	return $users;
+}
+
 function load_posts($page) {
 	global $db;
 	
