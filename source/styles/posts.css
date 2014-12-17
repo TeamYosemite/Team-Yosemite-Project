@@ -1,0 +1,28 @@
+
+		h1{
+		 font-size: 250%;
+		}
+		h2{
+		font-size:150%;
+		}
+		
+		body{
+		width:50%;
+		margin:0 auto;
+		}
+		#post{
+		border:5px solid lightgrey;
+		margin-bottom:20px;
+		}
+		article{
+		border:3px solid lightgrey;
+		margin:3px;
+		width:50%;
+		margin
+		}
+		.published, .author{
+		color:lightgrey;
+		}
+		textarea{
+		margin-top:10px;
+		}
