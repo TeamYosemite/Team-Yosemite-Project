@@ -46,6 +46,12 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="../styles/main.css" type="text/css"/>
 </head>
 <body class="adminPanel">
+	<ul class="menu">
+		<li><a href="index.php">Dashboard</a></li>
+		<li><a href="post_create.php">Create new post</a></li>
+		<li><a href="users_overview.php">Users overview</a></li>
+		<li><a href="../logout.php">Logout</a></li>
+	</ul>
 	<?= $isError ? "<p class=\"error\">{$errorMessage}</p>" : null;?>
 	<form method="POST" id="post-form">
 		<input type="text" name="title" value="<?= $current_post['title'];?>" placeholder="Title..." />
