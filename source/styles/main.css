@@ -212,13 +212,41 @@
     min-height: 400px;
     background-color: white;
     box-shadow: 0 0 5px lightgrey;
-
 }
+
+	.indexPage aside #search {
+		
+	}
+
+		.indexPage aside #search input[type=text] {
+			padding: 7px;
+			width: 160px;
+			outline: none;
+		}
+
+		.indexPage aside #search input[type=submit] {
+			background: #fff;
+			border: 1px solid #4ECDC4;
+			color: #636363;
+			padding: 8px 4px;
+			margin-left: -4px;
+			outline: none;
+		}
+
+		.indexPage aside #search input[type=submit]:hover {
+			background: #4ECDC4;
+			color: #fff;
+			cursor: pointer;
+		}
 
 .indexPage #paging {
     min-height: 50px;
 	text-align: center;
 	font-size: 18px;
+}
+
+.indexPage #paging p {
+    margin-top: 5px;
 }
 
 	.indexPage #paging span {
