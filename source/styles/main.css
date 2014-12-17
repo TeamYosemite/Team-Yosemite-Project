@@ -130,6 +130,14 @@
 .adminPanel tr:nth-child(odd) {
     background-color: #fef7f7;
 }
+.adminPanel .menu {
+	list-style: none;
+	text-align: center;
+}
+.adminPanel .menu li {
+	display: inline-block;
+	margin-right: 25px;
+}
 
 /* -> admin panel */
 

@@ -12,6 +12,13 @@ ifLoggedIn();
 <body class="adminPanel">
     <h1>Hello, <?= $_SESSION['username'];?>! Welcome to Admin Panel.</h1><!--User-->
 
+	<ul class="menu">
+		<li><a href="index.php">Dashboard</a></li>
+		<li><a href="post_create.php">Create new post</a></li>
+		<li><a href="users_overview.php">Users overview</a></li>
+		<li><a href="../logout.php">Logout</a></li>
+	<ul>
+	
     <h3>Table of all posts</h3>
 	
 	<table border="1">
