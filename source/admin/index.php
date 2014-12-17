@@ -17,7 +17,7 @@ ifLoggedIn();
 		<li><a href="post_create.php">Create new post</a></li>
 		<li><a href="users_overview.php">Users overview</a></li>
 		<li><a href="../logout.php">Logout</a></li>
-	<ul>
+	</ul>
 	
     <h3>Table of all posts</h3>
 	
