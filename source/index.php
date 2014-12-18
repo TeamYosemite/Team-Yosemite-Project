@@ -56,16 +56,16 @@ include 'templates/header.php';
 					$class = '';
 					
 					switch ($percent) {
-						case $percent < 20:
+						case $percent < 10:
 							$class = 'smallest';
 							break;
-						case $percent >= 20 and $percent < 40:
+						case $percent >= 10 and $percent < 20:
 							$class = 'small';
 							break;
-						case $percent >= 40 and $percent < 60:
+						case $percent >= 20 and $percent < 30:
 							$class = 'medium';
 							break;
-						case $percent >= 60 and $percent < 80:
+						case $percent >= 30 and $percent < 40:
 							$class = 'large';
 							break;
 						default:
