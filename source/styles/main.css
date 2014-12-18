@@ -210,34 +210,94 @@
     float: right;
     padding: 20px;
     width: 230px;
-    min-height: 400px;
+    min-height: 30px;
     background-color: white;
     box-shadow: 0 0 5px lightgrey;
 }
 
-	.indexPage aside #search {
-		
+	.indexPage aside #search input[type=text] {
+		padding: 7px;
+		width: 160px;
+		outline: none;
 	}
 
-		.indexPage aside #search input[type=text] {
-			padding: 7px;
-			width: 160px;
-			outline: none;
-		}
+	.indexPage aside #search input[type=submit] {
+		background: #fff;
+		border: 1px solid #4ECDC4;
+		color: #636363;
+		padding: 8px 4px;
+		margin-left: -4px;
+		outline: none;
+	}
 
-		.indexPage aside #search input[type=submit] {
-			background: #fff;
-			border: 1px solid #4ECDC4;
+	.indexPage aside #search input[type=submit]:hover {
+		background: #4ECDC4;
+		color: #fff;
+		cursor: pointer;
+	}
+	
+	.indexPage aside h3.meta {
+		color: #636363;
+		font-weight: normal;
+		font-size: 24px;
+		border-bottom: #ccc solid 1px;
+		padding-bottom: 1px;
+		margin-bottom: 7px;
+	}
+	
+	.indexPage aside .posts-archive {
+		padding: 0;
+		margin: 0;
+		margin-top: 15px;
+		list-style: none;
+	}
+	
+		.indexPage aside .posts-archive a {
+			color: #4ECDC4;
+		}
+	
+		.indexPage aside .posts-archive a:hover {
 			color: #636363;
-			padding: 8px 4px;
-			margin-left: -4px;
-			outline: none;
 		}
-
-		.indexPage aside #search input[type=submit]:hover {
-			background: #4ECDC4;
-			color: #fff;
-			cursor: pointer;
+	
+		.indexPage aside .posts-archive span.years {
+			font-weight: bold;
+		}
+	
+		.indexPage aside .posts-archive .month-posts {
+			display: none;
+		}
+		
+	.indexPage aside .tags-frequency {
+	
+	}
+	
+		.indexPage aside .tags-frequency a {
+			color: #4ECDC4;
+		}
+		
+		.indexPage aside .tags-frequency a:hover {
+			color: #636363;
+		}
+		
+		.indexPage aside .tags-frequency .smallest {
+			font-size: 80%;
+		}
+		
+		.indexPage aside .tags-frequency .small {
+			font-size: 100%;
+		}
+		
+		.indexPage aside .tags-frequency .medium {
+			font-size: 120%;
+		}
+		
+		.indexPage aside .tags-frequency .large {
+			font-size: 140%;
+		}
+		
+		.indexPage aside .tags-frequency .largest {
+			font-size: 160%;
 		}
 
 .indexPage #paging {

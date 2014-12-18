@@ -24,22 +24,22 @@ if(isset($_GET['search']) && $_GET['search'] != null) {
 	<?php
 	if(empty($posts)) {
 	?>
-		<p>Nothing found</p>
+		<article><p>Nothing found</p></p>
 	<?php
 	}
 	else {
 	?>
 			<?php foreach($posts as $post):?>
 				<article>
-					<h3 class="title"><?= htmlentities($post['post_title']);?></h3>
+					<h3 class="title"><?= addslashes($post['post_title']);?></h3>
 					<p class="meta">
 						<span class="clock"><?= date('D, j M Y', $post['post_dateCreated']);?></span> / 
-						<span class="user"><?= htmlentities($post['post_author']);?></span> / 
+						<span class="user"><?= addslashes($post['post_author']);?></span> / 
 						<span class="comments"><?= countPostComments($post['post_id']);?> comments</span>
 					</p>
-					<p class="description"><?= htmlentities($post['post_description']);?></p>
+					<p class="description"><?= addslashes($post['post_description']);?></p>
 					<a href="view_post.php?id=<?= $post['post_id'];?>" class="read-more">Read more</a>
-					<p class="meta">Tags: <?= htmlentities(implode(', ', load_tags($post['post_id'])));?></p>
+					<p class="meta">Tags: <?= addslashes(implode(', ', load_tags($post['post_id'])));?></p>
 				</article>
 			<?php endforeach;?>
 	<?php

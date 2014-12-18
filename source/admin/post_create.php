@@ -44,6 +44,7 @@ if (isset($_POST['submit'])) {
 <head>
     <title>Admin panel - post create</title>
     <link rel="stylesheet" href="../styles/main.css" type="text/css"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body class="adminPanel">
 	<ul class="menu">

@@ -59,6 +59,7 @@ else {
 <head>
     <title>Admin panel - post edit</title>
     <link rel="stylesheet" href="../styles/main.css" type="text/css"/>
+	<meta charset="UTF-8" />
 </head>
 <body class="adminPanel">
 	<ul class="menu">

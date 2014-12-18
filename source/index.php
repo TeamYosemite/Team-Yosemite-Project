@@ -22,18 +22,72 @@ include 'templates/header.php';
 				<input type="text" name="search" placeholder="Search..." />
 				<input type="submit" value="Search" />
 			</form>
+			
+			<h3 class="meta">Blog archive</h3>
+			<ul class="posts-archive" class="years">
+			<?php
+			$posts_archive = load_post_archive();
+			foreach($posts_archive as $year => $year_posts):
+			?>
+				<li><span class="years"><?= $year;?></span>
+					<ul class="months">
+					<?php foreach($year_posts as $month => $month_posts):?>
+						<li>
+							<a href="javascript: toggleChildren('<?= $year . '-' . $month;?>');"><?= $month;?></a> (<?= count($month_posts);?>)
+							<ul id="<?= $year . '-' . $month;?>" class="month-posts">
+							<?php foreach($month_posts as $post):?>
+								<li><a href="view_post.php?id=<?= $post['post_id'];?>"><?= $post['post_title'];?></a></li>
+							<?php endforeach;?>
+							</ul>
+						</li>
+					<?php endforeach;?>
+					</ul>
+				</li>
+			<?php endforeach;?>
+			</ul>
+			
+			<h3 class="meta">Tags frequency</h3>
+			<div class="tags-frequency">
+			<?php
+				$tags_grequency = load_tags_frequency();
+				
+				foreach($tags_grequency['tags'] as $tag => $frequency):
+					$percent = floor(($frequency / $tags_grequency['totalCounter']) * 100);
+					$class = '';
+					
+					switch ($percent) {
+						case $percent < 20:
+							$class = 'smallest';
+							break;
+						case $percent >= 20 and $percent < 40:
+							$class = 'small';
+							break;
+						case $percent >= 40 and $percent < 60:
+							$class = 'medium';
+							break;
+						case $percent >= 60 and $percent < 80:
+							$class = 'large';
+							break;
+						default:
+							$class = 'largest';
+							break;
+					}
+				?>
+					<a href="search.php?search=<?= $tag;?>" class="<?= $class;?>"><?= $tag;?></a>
+				<?php endforeach; ?>
+			</div>
 		</aside>
 		<?php foreach($data['posts'] as $post):?>
 			<article>
-				<h3 class="title"><?= htmlentities($post['post_title']);?></h3>
+				<h3 class="title"><?= addslashes($post['post_title']);?></h3>
 				<p class="meta">
 					<span class="clock"><?= date('D, j M Y', $post['post_dateCreated']);?></span> / 
-					<span class="user"><?= htmlentities($post['post_author']);?></span> / 
+					<span class="user"><?= addslashes($post['post_author']);?></span> / 
 					<span class="comments"><?= countPostComments($post['post_id']);?> comments</span>
 				</p>
-				<p class="description"><?= htmlentities($post['post_description']);?></p>
+				<p class="description"><?= addslashes($post['post_description']);?></p>
 				<a href="view_post.php?id=<?= $post['post_id'];?>" class="read-more">Read more</a>
-				<p class="meta"><span class="tags"><?= htmlentities(implode(', ', load_tags($post['post_id'])));?></span></p>
+				<p class="meta"><span class="tags"><?= addslashes(implode(', ', load_tags($post['post_id'])));?></span></p>
 			</article>
 		<?php endforeach;?>
 
@@ -50,6 +104,20 @@ include 'templates/header.php';
 			</p>
 		</article>
 	</main>
+	<script>
+	function toggleChildren(id) {
+		var elem = document.getElementById(id);
+
+		if(elem) {
+			if(elem.style.display == "block") {
+				elem.style.display = "none";
+			}
+			else {
+				elem.style.display = "block";
+			}
+		}
+	}
+</script>
 <?php
 
 include 'templates/footer.php';

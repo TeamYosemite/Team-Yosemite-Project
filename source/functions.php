@@ -111,6 +111,33 @@ function load_post($id) {
 	return $post[0];
 }
 
+function load_post_archive() {
+	global $db;
+	
+	$all_posts = load_all_posts();
+	$posts_archive = [];
+	
+	foreach($all_posts as $post) {
+		$year = date('Y', $post['post_dateCreated']);
+		$month = date('F', $post['post_dateCreated']);
+		
+		if(!isset($posts_archive[$year])) {
+			$posts_archive[$year] = [];
+		}
+		
+		if(!isset($posts_archive[$year][$month])) {
+			$posts_archive[$year][$month] = [];
+		}
+		
+		$posts_archive[$year][$month][] = [
+			'post_id' => $post['post_id'],
+			'post_title' => $post['post_title']
+		];
+	}
+	
+	return $posts_archive;
+}
+
 function load_tags($post_id) {
 	global $db;
 
@@ -125,6 +152,27 @@ function load_tags($post_id) {
 	}
 	
 	return $tags;
+}
+
+function load_tags_frequency() {
+	global $db;
+
+	$stmt = $db->prepare("SELECT tag_name FROM tags");
+    $stmt->execute();
+    $row_tags = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	$tags = [];
+	$totalCounter = 0;
+	
+	foreach($row_tags as $tag) {
+		if(!isset($tags[$tag['tag_name']])) {
+			$tags[$tag['tag_name']] = 0;
+		}
+		
+		$tags[$tag['tag_name']]++;
+		$totalCounter++;
+	}
+	
+	return [ 'tags' => $tags, 'totalCounter' => $totalCounter ];
 }
 
 function load_posts_by_tags($tags) {
@@ -175,15 +223,15 @@ function ifLoggedIn(){
 }
 
 function isPostValid($title, $description, $content, $tags) {
-	if(!preg_match('/^[^\s][\w\d\s!\.,;#$?@%&\(\)]{2,50}$/', $title)) {
+	if(mb_strlen($title) < 2) {
 		throw new Exception('Please enter valid title!');
 	}
 	
-	if(!preg_match('/^.{2,500}$/', $description)) {
+	if(mb_strlen($description) < 2) {
 		throw new Exception('Please enter valid description!');
 	}
 	
-	if(strlen($content) == 0) {
+	if(mb_strlen($description) < 2) {
 		throw new Exception('Please enter valid content!');
 	}
 	

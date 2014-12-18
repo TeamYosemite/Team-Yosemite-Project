@@ -35,6 +35,7 @@ if (isset($_POST['submit'])) {
 <head>
     <title>Admin panel - Users</title>
     <link rel="stylesheet" href="../styles/main.css" type="text/css"/>
+	<meta charset="UTF-8" />
 </head>
 <body class="adminPanel">
     <h1>Hello, <?= $_SESSION['username'];?>! Welcome to Admin Panel.</h1><!--User-->
