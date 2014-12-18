@@ -34,18 +34,18 @@ else {
 	
 	<main class="clearfix">
 		<article class="main-post">
-			<h1 class="title"><?= $post['post_title'];?></h1>
+			<h1 class="title"><?= addslashes($post['post_title']);?></h1>
 			<p class="meta">
 				<span class="clock"><?= date('D, j M Y', $post['post_dateCreated']);?></span> / 
-				<span class="user"><?= htmlentities($post['post_author']);?></span> / 
+				<span class="user"><?= addslashes($post['post_author']);?></span> / 
 				<span class="comments"><?= countPostComments($post['post_id']);?> comments</span>
 			</p>
 		
-			<h2 class="description"><?= $post['post_description'];?></h2>
-			<div class="content"><?= $post['post_content'];?></div>
+			<h2 class="description"><?= addslashes($post['post_description']);?></h2>
+			<div class="content"><?= addslashes($post['post_content']);?></div>
 			
 			<p class="meta">
-				<span class="tags"><?= htmlentities(implode(', ', load_tags($post['post_id'])));?></span> /
+				<span class="tags"><?= addslashes(implode(', ', load_tags($post['post_id'])));?></span> /
 				<span class="views"><?= $post['post_timesSeen'];?></span>
 			</p>
 		</article>
