@@ -29,7 +29,7 @@ else {
 
 <body class="indexPage">
 	<header>
-		<p>A blog about Beautiful Bulgaria</p>
+		<a href="index.php">A blog about beautiful Bulgaria</a>
 	</header>
 	
 	<main class="clearfix">

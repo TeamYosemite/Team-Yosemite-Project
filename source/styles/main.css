@@ -7,6 +7,11 @@
     src: url(../fonts/ClearSans-Light.ttf);
 }
 
+body {
+	margin: 0;
+	padding: 0;
+}
+
 .clearfix:after {
     content: "";
     display: table;
@@ -33,7 +38,7 @@
      margin: 0 auto;
 }
 
- header p {
+ header a {
     font-family: Lobster, sans-serif;
     position: absolute;
     bottom: 190px;
@@ -327,23 +332,22 @@
 		color: #fff;
 	}
 
- footer {
+footer {
     position: relative;
     background: linear-gradient(to bottom, #83a234 0%, #58732b 50%);
-    height: 200px;
+    height: 100px;
     width: 1024px;
     margin: 0 auto;
 }
 
-
- footer p {
-    display: block;
-    position: absolute;
-    top: 90px;
-    left: 50px;
+footer p {
     color: white;
     font-family: Tahoma, sans-serif;
     font-size: 24px;
+	text-align: center;
+	line-height: 100px;
+	margin: 0;
+	padding: 0;
 }
 /*
 .indexPage #paging {
@@ -437,14 +441,14 @@
     border-radius: 5px;
     height: 50px;
     line-height: 50px;
-    margin: auto;
+    margin: 50px auto;
     max-width: 500px;
-    background-color: #58732b;
+    background-color: #f03;
     display: block;
     text-align: center;
     font-size: 30px;
     font-weight: bold;
-    color: #ffffff;
+    color: #fff;
 }
 
 /* post create -> */

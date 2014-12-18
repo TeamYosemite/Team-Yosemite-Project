@@ -8,7 +8,7 @@ include 'templates/header.php';
 
 <body class="indexPage">
 	<header>
-		<p>A blog about Beautiful Bulgaria</p>
+		<a href="index.php">A blog about beautiful Bulgaria</a>
 	</header>
 
 	<?php
@@ -104,20 +104,7 @@ include 'templates/header.php';
 			</p>
 		</article>
 	</main>
-	<script>
-	function toggleChildren(id) {
-		var elem = document.getElementById(id);
-
-		if(elem) {
-			if(elem.style.display == "block") {
-				elem.style.display = "none";
-			}
-			else {
-				elem.style.display = "block";
-			}
-		}
-	}
-</script>
+	<script type="text/javascript" src="scripts/archivePosts.js"></script>
 <?php
 
 include 'templates/footer.php';

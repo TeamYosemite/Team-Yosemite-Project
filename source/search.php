@@ -11,7 +11,7 @@ if(isset($_GET['search']) && $_GET['search'] != null) {
 	?>
 	<body class="indexPage">
 		<header>
-			<p>A blog about Beautiful Bulgaria</p>
+			<a href="index.php">A blog about beautiful Bulgaria</a>
 		</header>
 		<main class="clearfix">
 			<h3>Searching for: <?= $_GET['search'];?></h3>

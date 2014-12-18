@@ -181,12 +181,14 @@ function load_posts_by_tags($tags) {
 	$posts = [];
 	
 	foreach($tags as $tag) {
+		$tag_search = '%' . $tag . '%';
+		
 		$stmt = $db->prepare("SELECT *
 		FROM (`posts`)
 		LEFT JOIN `posts_tags` ON `posts_tags`.`post_id` = `posts`.`post_id`
 		LEFT JOIN `tags` ON `posts_tags`.`tag_id` = `tags`.`tag_id`
 		WHERE `tag_name` LIKE :tag_name");
-		$stmt->bindParam('tag_name', $tag, PDO::PARAM_STR);
+		$stmt->bindParam('tag_name', $tag_search, PDO::PARAM_STR);
 		$stmt->execute();
 		$row_posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		
